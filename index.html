@@ -1,0 +1,770 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Captain 21 - Vegas Royalty Edition</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;900&family=Space+Grotesk:wght@400;700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --felt-base: radial-gradient(circle at 50% 20%, #04140b 0%, #010503 80%, #000000 100%);
+            --felt-win: radial-gradient(circle at 50% 20%, #042d14 0%, #010e05 80%, #000000 100%);
+            --felt-lose: radial-gradient(circle at 50% 20%, #360307 0%, #0e0102 80%, #000000 100%);
+            --felt-gold: radial-gradient(circle at 50% 20%, #3a2e09 0%, #120e02 80%, #000000 100%);
+            --gold: #d4af37;
+            --gold-bright: #f3e5ab;
+            --neon-green: #00ffaa;
+            --neon-red: #ff3b57;
+        }
+
+        body {
+            background-color: #010302;
+            color: #ffffff;
+            font-family: 'Space Grotesk', sans-serif;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 15px;
+            box-sizing: border-box;
+            overflow: hidden;
+        }
+        
+        .table {
+            background: var(--felt-base);
+            border: 3px solid var(--gold);
+            border-radius: 32px;
+            padding: 35px 25px;
+            box-shadow: 
+                0 60px 120px rgba(0,0,0,0.95), 
+                inset 0 0 120px rgba(0,0,0,0.95);
+            text-align: center;
+            max-width: 450px;
+            width: 100%;
+            height: 640px;
+            box-sizing: border-box;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            transition: border-color 1.2s cubic-bezier(0.25, 1, 0.5, 1), box-shadow 1.2s ease;
+        }
+
+        .table::before, .table::after, .table-gold-layer {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: 29px;
+            opacity: 0;
+            transition: opacity 1.2s cubic-bezier(0.25, 1, 0.5, 1);
+            z-index: -1;
+            pointer-events: none;
+        }
+        .table::before { background: var(--felt-win); }
+        .table::after { background: var(--felt-lose); }
+        .table-gold-layer { background: var(--felt-gold); position: absolute; inset: 0; border-radius: 29px; }
+
+        .table.mood-win::before { opacity: 1; }
+        .table.mood-lose-streak::after { opacity: 1; }
+        .table.mood-gold .table-gold-layer { opacity: 1; }
+
+        .table.mood-win {
+            border-color: var(--neon-green);
+            box-shadow: 0 50px 100px rgba(0,0,0,0.95), inset 0 0 100px rgba(0,0,0,0.8), 0 0 35px rgba(0, 255, 170, 0.2);
+        }
+        
+        .table.mood-lose-streak {
+            border-color: var(--neon-red);
+            box-shadow: 0 50px 100px rgba(0,0,0,0.95), inset 0 0 100px rgba(0,0,0,0.8), 0 0 35px rgba(255, 59, 87, 0.2);
+        }
+
+        .table.mood-gold {
+            border-color: var(--gold-bright);
+            box-shadow: 0 60px 120px rgba(0,0,0,0.95), inset 0 0 100px rgba(0,0,0,0.7), 0 0 45px rgba(212, 175, 55, 0.4);
+            animation: golden-pulse 2s infinite alternate;
+        }
+        
+        .inner-accent-rim {
+            position: absolute;
+            inset: 8px;
+            border: 1px solid rgba(212, 175, 55, 0.12);
+            border-radius: 24px;
+            pointer-events: none;
+            transition: border-color 1.2s ease;
+        }
+        .table.mood-win .inner-accent-rim { border-color: rgba(0, 255, 170, 0.2); }
+        .table.mood-lose-streak .inner-accent-rim { border-color: rgba(255, 59, 87, 0.2); }
+        .table.mood-gold .inner-accent-rim { border-color: rgba(243, 229, 171, 0.4); }
+        
+        .hud {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-family: 'Cinzel', serif;
+            font-size: 1.15rem;
+            border-bottom: 1px solid rgba(212, 175, 55, 0.15);
+            padding-bottom: 15px;
+            z-index: 2;
+        }
+
+        .hud-left {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .balance-display {
+            color: var(--gold);
+            letter-spacing: 2px;
+            font-weight: 900;
+            transition: color 0.8s ease;
+        }
+        .table.mood-win .balance-display { color: var(--neon-green); }
+        .table.mood-lose-streak .balance-display { color: var(--neon-red); }
+        .table.mood-gold .balance-display { color: var(--gold-bright); }
+
+        .settings-trigger {
+            background: none;
+            border: none;
+            padding: 0;
+            cursor: pointer;
+            box-shadow: none !important;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.4s ease;
+        }
+        .settings-trigger:hover { transform: rotate(45deg) scale(1.1); background: none; }
+        .settings-trigger svg { width: 22px; height: 22px; fill: var(--gold); }
+        
+        /* Interactive Panel Overlay */
+        .settings-panel {
+            position: absolute;
+            top: -100%;
+            left: 25px;
+            right: 25px;
+            background: rgba(4, 12, 7, 0.92);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 2px solid var(--gold);
+            border-top: none;
+            border-radius: 0 0 20px 20px;
+            padding: 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.8);
+            z-index: 10;
+            transition: top 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.1);
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        .settings-panel.open { top: 0; }
+
+        .settings-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.9rem;
+            letter-spacing: 1.5px;
+        }
+
+        .settings-btn {
+            background: rgba(255,255,255,0.05);
+            border: 1px solid var(--gold);
+            color: #ffffff;
+            padding: 8px 16px;
+            font-size: 0.85rem;
+            border-radius: 8px;
+            letter-spacing: 1px;
+            min-width: 110px;
+        }
+        .settings-btn:hover { background: var(--gold); color: #000; transform: none; box-shadow: none; }
+
+        .score-square {
+            background: #000000;
+            border: 2px solid var(--gold);
+            width: 56px;
+            height: 56px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.6rem;
+            font-weight: 700;
+            border-radius: 14px;
+            box-shadow: inset 0 0 15px rgba(0,0,0,0.9);
+            transition: all 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+        
+        .score-square.glow {
+            box-shadow: 0 0 25px var(--neon-green), inset 0 0 10px rgba(0, 255, 170, 0.3);
+            border-color: var(--neon-green);
+            color: var(--neon-green);
+            transform: scale(1.08);
+        }
+        
+        .score-square.glow-bust {
+            box-shadow: 0 0 25px var(--neon-red), inset 0 0 10px rgba(255, 59, 87, 0.3);
+            border-color: var(--neon-red);
+            color: var(--neon-red);
+            transform: scale(1.08);
+        }
+
+        .score-square.glow-gold {
+            box-shadow: 0 0 35px var(--gold-bright), inset 0 0 10px rgba(212, 175, 55, 0.5);
+            border-color: var(--gold-bright);
+            color: var(--gold-bright);
+            transform: scale(1.15) rotate(360deg);
+        }
+        
+        .matrix-container {
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(212, 175, 55, 0.1);
+            border-radius: 16px;
+            padding: 10px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
+            font-size: 0.95rem;
+            z-index: 2;
+        }
+        
+        .matrix-row {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            padding: 8px;
+            border-radius: 8px;
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            color: #72849a;
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid transparent;
+        }
+        
+        .matrix-row span { font-weight: 700; }
+        .matrix-row .mult-val { color: var(--gold); }
+        
+        .matrix-row.flash-win {
+            background: linear-gradient(135deg, #072515 0%, #02140a 100%) !important;
+            color: #ffffff !important;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(0, 255, 170, 0.15);
+            border-color: var(--neon-green);
+        }
+        .matrix-row.flash-win .mult-val { color: var(--neon-green); font-weight: 900; }
+
+        .matrix-row.flash-gold {
+            background: linear-gradient(135deg, #302404 0%, #120e02 100%) !important;
+            color: #ffffff !important;
+            transform: translateY(-3px) scale(1.03);
+            box-shadow: 0 10px 25px rgba(212,175,55,0.4);
+            border-color: var(--gold-bright);
+        }
+        .matrix-row.flash-gold .mult-val { color: var(--gold-bright); font-weight: 900; }
+
+        .card-container {
+            display: flex;
+            justify-content: center;
+            gap: 14px;
+            height: 145px;
+            perspective: 1000px;
+            z-index: 2;
+            transition: transform 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .card-container.gold-lift { transform: translateY(-8px) scale(1.03); }
+        
+        .card-slot {
+            width: 94px;
+            height: 142px;
+            position: relative;
+            transform-style: preserve-3d;
+            transition: transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+        
+        .card-slot.flipped { transform: rotateY(180deg); }
+        .card-slot:hover { transform: translateY(-4px) scale(1.02); }
+        .card-slot.flipped:hover { transform: rotateY(180deg) translateY(-4px) scale(1.02); }
+        
+        .card-front, .card-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            border-radius: 12px;
+            box-shadow: 0 15px 30px rgba(0,0,0,0.6);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            padding: 10px;
+            box-sizing: border-box;
+        }
+        
+        .card-back {
+            background: linear-gradient(135deg, #14171a 0%, #070809 100%);
+            border: 2px solid var(--gold);
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .card-back-pattern { width: 34px; height: 34px; opacity: 0.35; }
+        
+        .card-front {
+            background: linear-gradient(145deg, #ffffff 0%, #e6ecf2 100%);
+            color: #0b0c0e;
+            transform: rotateY(180deg);
+            font-size: 1.4rem;
+            font-weight: 700;
+        }
+        
+        .card-front .art-wrapper {
+            width: 46px;
+            height: 46px;
+            align-self: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .card-front svg { width: 100%; height: 100%; }
+        .card-front .corner-suit { width: 12px; height: 12px; margin-top: 3px; }
+        .card-front .top-corner, .card-front .bottom-corner {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            line-height: 0.9;
+        }
+        .card-front .bottom-corner { transform: rotate(180deg); }
+        
+        .status-box {
+            font-family: 'Cinzel', serif;
+            font-size: 1.3rem;
+            min-height: 45px;
+            font-weight: 900;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            letter-spacing: 2px;
+            color: #72849a;
+            transition: all 0.4s ease;
+            z-index: 2;
+        }
+        
+        .neon-glow-win {
+            color: var(--neon-green) !important;
+            text-shadow: 0 0 8px rgba(0, 255, 170, 0.8), 0 0 20px rgba(0, 255, 170, 0.4);
+        }
+        
+        .neon-glow-bust {
+            color: var(--neon-red) !important;
+            text-shadow: 0 0 8px rgba(255, 59, 87, 0.8), 0 0 20px rgba(255, 59, 87, 0.4);
+        }
+
+        .neon-glow-gold {
+            color: var(--gold-bright) !important;
+            text-shadow: 0 0 10px rgba(212, 175, 55, 0.8), 0 0 25px rgba(255, 223, 0, 0.6), 0 0 40px rgba(255, 215, 0, 0.3);
+            animation: gold-text-shimmer 1s infinite alternate;
+        }
+
+        /* RTL Adjustments for Hebrew Mode */
+        .rtl-layout { direction: rtl; }
+        .rtl-layout .hud-left { flex-direction: row-reverse; }
+
+        @keyframes gold-text-shimmer {
+            0% { transform: scale(1); filter: brightness(1); }
+            100% { transform: scale(1.02); filter: brightness(1.2); }
+        }
+
+        @keyframes golden-pulse {
+            0% { box-shadow: 0 60px 120px rgba(0,0,0,0.95), inset 0 0 100px rgba(0,0,0,0.7), 0 0 35px rgba(212, 175, 55, 0.3); }
+            100% { box-shadow: 0 60px 120px rgba(0,0,0,0.95), inset 0 0 100px rgba(0,0,0,0.7), 0 0 55px rgba(212, 175, 55, 0.6); }
+        }
+        
+        .controls {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 15px;
+            z-index: 2;
+        }
+        
+        input[type="number"] {
+            background: #000000;
+            border: 2px solid var(--gold);
+            color: var(--gold);
+            padding: 14px;
+            font-size: 1.3rem;
+            border-radius: 12px;
+            width: 95px;
+            text-align: center;
+            font-weight: 700;
+            box-shadow: inset 0 4px 8px rgba(0,0,0,0.7);
+            transition: all 0.3s ease;
+        }
+        input[type="number"]:focus { outline: none; border-color: #ffffff; color: #ffffff; }
+        
+        button {
+            background: linear-gradient(180deg, #ecd388 0%, var(--gold) 100%);
+            color: #020503;
+            border: none;
+            padding: 16px 36px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            border-radius: 12px;
+            cursor: pointer;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            letter-spacing: 2px;
+        }
+        
+        button:hover { 
+            background: linear-gradient(180deg, #ffffff 0%, var(--gold) 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 12px 28px rgba(212,175,55,0.25); 
+        }
+        button:active { transform: translateY(1px); }
+        button:disabled { background: #131619; color: #3e4247; cursor: not-allowed; transform: none; box-shadow: none; }
+    </style>
+</head>
+<body>
+
+<div class="table" id="blackjack-table">
+    <div class="table-gold-layer"></div>
+    <div class="inner-accent-rim"></div>
+
+    <!-- Slide-down Config Panel Layer -->
+    <div class="settings-panel" id="settings-drawer">
+        <div class="settings-row">
+            <span id="label-sound">Audio System</span>
+            <button class="settings-btn" id="mute-toggle-btn" onclick="toggleMute()">MUTE</button>
+        </div>
+        <div class="settings-row">
+            <span id="label-lang">Language</span>
+            <button class="settings-btn" id="lang-toggle-btn" onclick="toggleLanguage()">עברית</button>
+        </div>
+    </div>
+
+    <div class="hud">
+        <div class="hud-left">
+            <button class="settings-trigger" onclick="toggleSettingsPanel()" id="gear-btn">
+                <svg viewBox="0 0 24 24"><path d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.04-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.09.63-.09.94s.02.64.07.94l-2.03 1.58c-.18.14-.23.41-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z"/></svg>
+            </button>
+            <div class="balance-display"><span id="txt-balance">BALANCE</span>: <span id="balance">100</span>₪</div>
+        </div>
+        <div class="score-square" id="score-box">0</div>
+    </div>
+
+    <div class="matrix-container">
+        <div class="matrix-row" id="m-16"><span>16</span><span class="mult-val">2x</span></div>
+        <div class="matrix-row" id="m-19"><span>19</span><span class="mult-val">4x</span></div>
+        <div class="matrix-row" id="m-17"><span>17</span><span class="mult-val">2.1x</span></div>
+        <div class="matrix-row" id="m-20"><span>20</span><span class="mult-val">4.8x</span></div>
+        <div class="matrix-row" id="m-18"><span>18</span><span class="mult-val">3.5x</span></div>
+        <div class="matrix-row" id="m-21"><span>21</span><span class="mult-val">10x</span></div>
+    </div>
+
+    <div class="card-container" id="card-holder">
+        <div class="card-slot" id="slot-0"><div class="card-back"><svg class="card-back-pattern" viewBox="0 0 24 24" fill="none" stroke="#d4af37" stroke-width="1.5"><path d="M12 2L2 12l10 10 10-10L12 2z M12 6l6 6-6 6-6-6Z"/></svg></div><div class="card-front" id="front-0"></div></div>
+        <div class="card-slot" id="slot-1"><div class="card-back"><svg class="card-back-pattern" viewBox="0 0 24 24" fill="none" stroke="#d4af37" stroke-width="1.5"><path d="M12 2L2 12l10 10 10-10L12 2z M12 6l6 6-6 6-6-6Z"/></svg></div><div class="card-front" id="front-1"></div></div>
+        <div class="card-slot" id="slot-2"><div class="card-back"><svg class="card-back-pattern" viewBox="0 0 24 24" fill="none" stroke="#d4af37" stroke-width="1.5"><path d="M12 2L2 12l10 10 10-10L12 2z M12 6l6 6-6 6-6-6Z"/></svg></div><div class="card-front" id="front-2"></div></div>
+        <div class="card-slot" id="slot-3"><div class="card-back"><svg class="card-back-pattern" viewBox="0 0 24 24" fill="none" stroke="#d4af37" stroke-width="1.5"><path d="M12 2L2 12l10 10 10-10L12 2z M12 6l6 6-6 6-6-6Z"/></svg></div><div class="card-front" id="front-3"></div></div>
+    </div>
+
+    <div class="status-box" id="status-message">PLACE BET TO START</div>
+
+    <div class="controls">
+        <input type="number" id="bet-input" value="2" min="2">
+        <button id="deal-btn" onclick="playRound()">DEAL HAND</button>
+    </div>
+</div>
+
+<script>
+    let balance = 100;
+    const minBet = 2;
+    let audioCtx = null;
+    let isMuted = false;
+    let currentLang = 'en'; // 'en' or 'he'
+    let lossStreakCount = 0;
+    let currentGameStatus = 'idle'; // tracker for dynamic engine translations
+
+    const translations = {
+        en: {
+            balance: "BALANCE",
+            start: "PLACE BET TO START",
+            dealing: "DEALING...",
+            winner: "WINNER",
+            bust: "BUST",
+            push: "PUSH",
+            closed: "TABLE CLOSED",
+            dealBtn: "DEAL HAND",
+            audioLabel: "Audio System",
+            langLabel: "Language",
+            muteBtnActive: "UNMUTE",
+            muteBtnMuted: "MUTE"
+        },
+        he: {
+            balance: "יתרה",
+            start: "שים הימור כדי להתחיל",
+            dealing: "מחלק קלפים...",
+            winner: "זכייה",
+            bust: "הפסד",
+            push: "תיקו",
+            closed: "השולחן סגור",
+            dealBtn: "חלק יד",
+            audioLabel: "מערכת שמע",
+            langLabel: "שפה",
+            muteBtnActive: "השתק",
+            muteBtnMuted: "הפעל קול"
+        }
+    };
+
+    const cardArtworks = {
+        spades: `<svg viewBox="0 0 100 100"><path d="M50,15 C44,35 20,44 20,60 C20,74 32,77 50,68 C68,77 80,74 80,60 C80,44 56,35 50,15 Z" fill="#1c1e21"/><path d="M50,62 L42,85 L58,85 Z" fill="#1c1e21"/><path d="M50,17 C45,35 22,44 22,60 C22,72 32,74 50,65 C68,74 78,72 78,60 C78,44 55,35 50,17 Z" fill="none" stroke="#d4af37" stroke-width="1.5"/></svg>`,
+        hearts: `<svg viewBox="0 0 100 100"><path d="M50,26 C50,8 22,6 22,32 C22,56 50,84 50,84 C50,84 78,56 78,32 C78,6 50,8 50,26 Z" fill="#ba1225"/><path d="M50,29 C50,13 25,11 25,32 C25,52 50,77 50,77 C50,77 75,52 75,32 C75,13 50,29 50,29 Z" fill="none" stroke="#d4af37" stroke-width="1.5"/></svg>`,
+        diamonds: `<svg viewBox="0 0 100 100"><path d="M50,12 L16,50 L50,88 L84,50 Z" fill="#ba1225"/><path d="M50,17 L21,50 L50,83 L79,50 Z" fill="none" stroke="#d4af37" stroke-width="1.5"/></svg>`,
+        clubs: `<svg viewBox="0 0 100 100"><circle cx="50" cy="32" r="16" fill="#1c1e21"/><circle cx="33" cy="56" r="16" fill="#1c1e21"/><circle cx="67" cy="56" r="16" fill="#1c1e21"/><path d="M50,50 L42,85 L58,85 Z" fill="#1c1e21"/><circle cx="50" cy="32" r="13" fill="none" stroke="#d4af37" stroke-width="1.5"/><circle cx="33" cy="56" r="13" fill="none" stroke="#d4af37" stroke-width="1.5"/><circle cx="67" cy="56" r="13" fill="none" stroke="#d4af37" stroke-width="1.5"/></svg>`
+    };
+
+    const miniVectors = {
+        spades: `<svg class="corner-suit" viewBox="0 0 24 24" fill="#1c1e21"><path d="M12 2C11.5 2 10 5 10 8c0 2.2 1.8 4 4 4s4-1.8 4-4c0-3-1.5-6-2-6zm0 11c-2.2 0-4 1.8-4 4 0 2 1.5 3 3.5 3 .5 0 1 1 1 2h3c0-1 .5-2 1-2 2 0 3.5-1 3.5-3 0-2.2-1.8-4-4-4z"/></svg>`,
+        hearts: `<svg class="corner-suit" viewBox="0 0 24 24" fill="#ba1225"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.5 3 21 5.42 21 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>`,
+        diamonds: `<svg class="corner-suit" viewBox="0 0 24 24" fill="#ba1225"><path d="M12 2L2 12l10 10 10-10L12 2z"/></svg>`,
+        clubs: `<svg class="corner-suit" viewBox="0 0 24 24" fill="#1c1e21"><path d="M12 9.5a3.5 3.5 0 1 0-3.5-3.5A3.5 3.5 0 0 0 12 9.5zm-4.5 7a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7zm9 0a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7zm-4.5.5a1.5 1.5 0 0 0-1.5 1.5v2.5h3v-2.5a1.5 1.5 0 0 0-1.5-1.5z"/></svg>`
+    };
+
+    const suits = [
+        { id: 'spades', name: 'black', markup: cardArtworks.spades, mini: miniVectors.spades },
+        { id: 'hearts', name: 'red', markup: cardArtworks.hearts, mini: miniVectors.hearts },
+        { id: 'diamonds', name: 'red', markup: cardArtworks.diamonds, mini: miniVectors.diamonds },
+        { id: 'clubs', name: 'black', markup: cardArtworks.clubs, mini: miniVectors.clubs }
+    ];
+    const values = ['A', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K'];
+
+    function initAudio() { if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)(); }
+
+    function toggleSettingsPanel() {
+        document.getElementById('settings-drawer').classList.toggle('open');
+    }
+
+    function toggleMute() {
+        isMuted = !isMuted;
+        const btn = document.getElementById('mute-toggle-btn');
+        btn.innerText = isMuted ? 
+            translations[currentLang].muteBtnMuted : 
+            translations[currentLang].muteBtnActive;
+    }
+
+    function toggleLanguage() {
+        currentLang = currentLang === 'en' ? 'he' : 'en';
+        
+        // App Layout adjustments
+        const mainTable = document.getElementById('blackjack-table');
+        if (currentLang === 'he') {
+            mainTable.classList.add('rtl-layout');
+            document.getElementById('lang-toggle-btn').innerText = "English";
+        } else {
+            mainTable.classList.remove('rtl-layout');
+            document.getElementById('lang-toggle-btn').innerText = "עברית";
+        }
+
+        // Static label updates
+        document.getElementById('txt-balance').innerText = translations[currentLang].balance;
+        document.getElementById('deal-btn').innerText = translations[currentLang].dealBtn;
+        document.getElementById('label-sound').innerText = translations[currentLang].audioLabel;
+        document.getElementById('label-lang').innerText = translations[currentLang].langLabel;
+        document.getElementById('mute-toggle-btn').innerText = isMuted ? translations[currentLang].muteBtnMuted : translations[currentLang].muteBtnActive;
+
+        // Dynamic State UI translations 
+        const statusBox = document.getElementById('status-message');
+        if (currentGameStatus === 'idle') {
+            statusBox.innerText = translations[currentLang].start;
+        } else if (currentGameStatus === 'dealing') {
+            statusBox.innerText = translations[currentLang].dealing;
+        } else if (currentGameStatus === 'closed') {
+            statusBox.innerHTML = translations[currentLang].closed;
+        } else if (currentGameStatus.startsWith('win_')) {
+            let amt = currentGameStatus.split('_')[1];
+            statusBox.innerHTML = `${translations[currentLang].winner} (+${amt}₪)`;
+        } else if (currentGameStatus.startsWith('gold_')) {
+            let amt = currentGameStatus.split('_')[1];
+            statusBox.innerHTML = currentLang === 'en' ? `👑 CAPTAIN 21 (+${amt}₪) 👑` : `👑 קפטן 21 (+${amt}₪) 👑`;
+        } else if (currentGameStatus.startsWith('bust_')) {
+            let amt = currentGameStatus.split('_')[1];
+            statusBox.innerHTML = `${translations[currentLang].bust} (-${amt}₪)`;
+        } else if (currentGameStatus === 'push') {
+            statusBox.innerText = translations[currentLang].push;
+        }
+    }
+
+    function playSoundEffect(type) {
+        if (isMuted) return;
+        initAudio(); if (!audioCtx) return; const now = audioCtx.currentTime;
+        if (type === 'flip') {
+            const osc = audioCtx.createOscillator(); const gain = audioCtx.createGain(); osc.connect(gain); gain.connect(audioCtx.destination);
+            osc.frequency.setValueAtTime(280, now); osc.frequency.exponentialRampToValueAtTime(140, now + 0.08);
+            gain.gain.setValueAtTime(0.05, now); gain.gain.linearRampToValueAtTime(0, now + 0.08);
+            osc.start(now); osc.stop(now + 0.08);
+        } else if (type === 'win') {
+            [523.25, 659.25, 783.99, 1046.50].forEach((f, i) => {
+                const osc = audioCtx.createOscillator(); const gain = audioCtx.createGain(); osc.connect(gain); gain.connect(audioCtx.destination);
+                osc.type = 'sine'; osc.frequency.setValueAtTime(f, now + (i * 0.06));
+                gain.gain.setValueAtTime(0, now); gain.gain.linearRampToValueAtTime(0.03, now + (i * 0.06) + 0.02); gain.gain.exponentialRampToValueAtTime(0.001, now + 0.45);
+                osc.start(now); osc.stop(now + 0.45);
+            });
+        } else if (type === 'gold') {
+            [523.25, 659.25, 783.99, 1046.50, 1318.51].forEach((f, i) => {
+                const osc = audioCtx.createOscillator(); const gain = audioCtx.createGain(); osc.connect(gain); gain.connect(audioCtx.destination);
+                osc.type = 'sine'; osc.frequency.setValueAtTime(f, now + (i * 0.05));
+                gain.gain.setValueAtTime(0, now); gain.gain.linearRampToValueAtTime(0.04, now + (i * 0.05) + 0.02); gain.gain.exponentialRampToValueAtTime(0.001, now + 0.6);
+                osc.start(now); osc.stop(now + 0.6);
+            });
+        } else if (type === 'bust') {
+            const osc = audioCtx.createOscillator(); const gain = audioCtx.createGain(); osc.connect(gain); gain.connect(audioCtx.destination);
+            osc.type = 'triangle'; osc.frequency.setValueAtTime(110, now); osc.frequency.linearRampToValueAtTime(55, now + 0.35);
+            gain.gain.setValueAtTime(0.08, now); gain.gain.linearRampToValueAtTime(0, now + 0.35);
+            osc.start(now); osc.stop(now + 0.35);
+        }
+    }
+
+    function calculateHand(hand) {
+        let total = hand.reduce((sum, card) => sum + card.weight, 0);
+        let aces = hand.filter(card => card.value === 'A').length;
+        while (total > 21 && aces > 0) { total -= 10; aces -= 1; }
+        return total;
+    }
+
+    function getMultiplier(total) {
+        if (total > 21) return 0;
+        if (total === 21) return 10;
+        if (total === 20) return 4.8;
+        if (total === 19) return 4;
+        if (total === 18) return 3.5;
+        if (total === 17) return 2.1;
+        if (total === 16) return 2;
+        return 1;
+    }
+
+    function playRound() {
+        const dealBtn = document.getElementById('deal-btn');
+        const betInput = document.getElementById('bet-input');
+        const scoreBox = document.getElementById('score-box');
+        const status = document.getElementById('status-message');
+        const table = document.getElementById('blackjack-table');
+        const cardsContainer = document.getElementById('card-holder');
+        const bet = parseFloat(betInput.value);
+
+        // Close drawer if open on round start
+        document.getElementById('settings-drawer').classList.remove('open');
+
+        if (isNaN(bet) || bet < minBet) { alert(`Min bet is ${minBet}₪!`); return; }
+        if (bet > balance) { alert("Insufficient funds!"); return; }
+
+        dealBtn.disabled = true; betInput.disabled = true;
+        
+        table.classList.remove('mood-win', 'mood-lose-streak', 'mood-gold');
+        cardsContainer.classList.remove('gold-lift');
+        status.className = "status-box"; 
+        scoreBox.className = "score-square";
+        scoreBox.innerText = "0";
+        
+        currentGameStatus = 'dealing';
+        status.innerHTML = translations[currentLang].dealing;
+        document.querySelectorAll('.matrix-row').forEach(r => r.classList.remove('flash-win', 'flash-gold'));
+        
+        for(let i=0; i<4; i++) document.getElementById(`slot-${i}`).classList.remove('flipped');
+
+        balance -= bet;
+        document.getElementById('balance').innerText = balance.toFixed(2);
+        
+        let deck = [];
+        for (let suit of suits) {
+            for (let value of values) {
+                let weight = parseInt(value);
+                if (['J', 'Q', 'K'].includes(value)) weight = 10;
+                if (value === 'A') weight = 11;
+                deck.push({ value, suit, weight });
+            }
+        }
+        
+        let hand = [];
+        for(let i=0; i<4; i++) hand.push(deck.splice(Math.floor(Math.random() * deck.length), 1)[0]);
+
+        setTimeout(() => {
+            hand.forEach((card, index) => {
+                setTimeout(() => {
+                    const frontSide = document.getElementById(`front-${index}`);
+                    frontSide.className = `card-front ${card.suit.name}`;
+                    frontSide.innerHTML = `
+                        <div class="top-corner"><div>${card.value}</div>${card.suit.mini}</div>
+                        <div class="art-wrapper">${card.suit.markup}</div>
+                        <div class="bottom-corner"><div>${card.value}</div>${card.suit.mini}</div>
+                    `;
+                    document.getElementById(`slot-${index}`).classList.add('flipped');
+                    playSoundEffect('flip');
+                    scoreBox.innerText = calculateHand(hand.slice(0, index + 1));
+                }, index * 240);
+            });
+        }, 100);
+
+        setTimeout(() => {
+            let total = calculateHand(hand);
+            let mult = getMultiplier(total);
+            let winnings = bet * mult;
+            balance += winnings;
+            document.getElementById('balance').innerText = balance.toFixed(2);
+
+            if (total === 21) {
+                lossStreakCount = 0;
+                table.classList.add('mood-gold');
+                cardsContainer.classList.add('gold-lift');
+                scoreBox.classList.add('glow-gold');
+                document.getElementById(`m-21`)?.classList.add('flash-gold');
+                status.className = "status-box neon-glow-gold";
+                
+                currentGameStatus = `gold_${winnings.toFixed(2)}`;
+                status.innerHTML = currentLang === 'en' ? `👑 CAPTAIN 21 (+${winnings.toFixed(2)}₪) 👑` : `👑 קפטן 21 (+${winnings.toFixed(2)}₪) 👑`;
+                playSoundEffect('gold');
+            } else if (mult > 1) {
+                lossStreakCount = 0;
+                table.classList.add('mood-win');
+                scoreBox.classList.add('glow');
+                document.getElementById(`m-${total}`)?.classList.add('flash-win');
+                status.className = "status-box neon-glow-win";
+                
+                currentGameStatus = `win_${winnings.toFixed(2)}`;
+                status.innerHTML = `${translations[currentLang].winner} (+${winnings.toFixed(2)}₪)`;
+                playSoundEffect('win');
+            } else if (mult === 0) {
+                lossStreakCount++;
+                scoreBox.classList.add('glow-bust');
+                status.className = "status-box neon-glow-bust";
+                
+                currentGameStatus = `bust_${bet}`;
+                status.innerHTML = `${translations[currentLang].bust} (-${bet}₪)`;
+                playSoundEffect('bust');
+                if(lossStreakCount >= 2) table.classList.add('mood-lose-streak');
+            } else {
+                lossStreakCount = 0;
+                currentGameStatus = 'push';
+                status.innerHTML = `${translations[currentLang].push} (+${bet}₪)`;
+            }
+
+            if (balance < minBet) {
+                currentGameStatus = 'closed';
+                status.innerHTML += `<br><span style='color:var(--neon-red);'>${translations[currentLang].closed}</span>`;
+            } else {
+                dealBtn.disabled = false; betInput.disabled = false;
+            }
+        }, 1100); 
+    }
+</script>
+</body>
+</html>
+י
