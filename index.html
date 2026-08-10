@@ -1,50 +1,163 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover"
+>
+
 <title>Captain 21 - Vegas Royalty Edition</title>
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;900&family=Space+Grotesk:wght@400;700&display=swap" rel="stylesheet">
+
+<link
+    href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;900&family=Space+Grotesk:wght@400;700&display=swap"
+    rel="stylesheet"
+>
 
 <style>
+
 :root {
-    --felt-base: radial-gradient(circle at 50% 20%, #04140b 0%, #010503 80%, #000000 100%);
-    --felt-win: radial-gradient(circle at 50% 20%, #042d14 0%, #010e05 80%, #000000 100%);
-    --felt-lose: radial-gradient(circle at 50% 20%, #360307 0%, #0e0102 80%, #000000 100%);
-    --felt-gold: radial-gradient(circle at 50% 20%, #3a2e09 0%, #120e02 80%, #000000 100%);
+
+    --felt-base:
+        radial-gradient(
+            circle at 50% 20%,
+            #04140b 0%,
+            #010503 80%,
+            #000000 100%
+        );
+
+    --felt-win:
+        radial-gradient(
+            circle at 50% 20%,
+            #042d14 0%,
+            #010e05 80%,
+            #000000 100%
+        );
+
+    --felt-lose:
+        radial-gradient(
+            circle at 50% 20%,
+            #360307 0%,
+            #0e0102 80%,
+            #000000 100%
+        );
+
+    --felt-gold:
+        radial-gradient(
+            circle at 50% 20%,
+            #3a2e09 0%,
+            #120e02 80%,
+            #000000 100%
+        );
 
     --gold: #d4af37;
     --gold-bright: #f3e5ab;
+
     --neon-green: #00ffaa;
     --neon-red: #ff3b57;
 }
 
-* {
-    box-sizing: border-box;
+
+/* =========================================================
+   MOBILE ZOOM / TOUCH CONTROL
+========================================================= */
+
+html {
+
+    touch-action: manipulation;
+
+    -webkit-text-size-adjust: 100%;
+
+    overscroll-behavior: none;
+
 }
+
 
 body {
-    background-color: #010302;
-    color: #ffffff;
-    font-family: 'Space Grotesk', sans-serif;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    min-height: 100vh;
-    margin: 0;
-    padding: 15px;
-    overflow: hidden;
+
+    touch-action: manipulation;
+
+    -webkit-touch-callout: none;
+
+    -webkit-user-select: none;
+    user-select: none;
+
+    overscroll-behavior: none;
+
 }
 
+
+/* Allow normal interaction with form controls */
+
+input,
+button {
+
+    touch-action: manipulation;
+
+}
+
+
+/* =========================================================
+   GLOBAL
+========================================================= */
+
+* {
+
+    box-sizing: border-box;
+
+    -webkit-tap-highlight-color: transparent;
+
+}
+
+
+body {
+
+    background-color: #010302;
+
+    color: #ffffff;
+
+    font-family: 'Space Grotesk', sans-serif;
+
+    letter-spacing: 1px;
+
+    text-transform: uppercase;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    min-height: 100vh;
+
+    min-height: 100dvh;
+
+    margin: 0;
+
+    padding: 15px;
+
+    overflow: hidden;
+
+}
+
+
+/* =========================================================
+   TABLE
+========================================================= */
+
 .table {
+
     background: var(--felt-base);
+
     border: 3px solid var(--gold);
+
     border-radius: 32px;
+
     padding: 35px 25px;
 
     box-shadow:
@@ -52,77 +165,120 @@ body {
         inset 0 0 120px rgba(0,0,0,0.95);
 
     text-align: center;
+
     max-width: 450px;
+
     width: 100%;
+
     height: 640px;
 
     position: relative;
 
     display: flex;
+
     flex-direction: column;
+
     justify-content: space-between;
 
     transition:
         border-color 1.2s cubic-bezier(0.25, 1, 0.5, 1),
         box-shadow 1.2s ease;
+
 }
+
 
 .table::before,
 .table::after,
 .table-gold-layer {
+
     content: '';
+
     position: absolute;
+
     inset: 0;
+
     border-radius: 29px;
+
     opacity: 0;
-    transition: opacity 1.2s cubic-bezier(0.25, 1, 0.5, 1);
+
+    transition:
+        opacity 1.2s cubic-bezier(0.25, 1, 0.5, 1);
+
     z-index: 0;
+
     pointer-events: none;
+
 }
+
 
 .table::before {
+
     background: var(--felt-win);
+
 }
+
 
 .table::after {
+
     background: var(--felt-lose);
+
 }
+
 
 .table-gold-layer {
+
     background: var(--felt-gold);
+
 }
+
 
 .table.mood-win::before {
+
     opacity: 1;
+
 }
+
 
 .table.mood-lose-streak::after {
+
     opacity: 1;
+
 }
+
 
 .table.mood-gold .table-gold-layer {
+
     opacity: 1;
+
 }
 
+
 .table.mood-win {
+
     border-color: var(--neon-green);
 
     box-shadow:
         0 50px 100px rgba(0,0,0,0.95),
         inset 0 0 100px rgba(0,0,0,0.8),
         0 0 35px rgba(0,255,170,0.2);
+
 }
 
+
 .table.mood-lose-streak {
+
     border-color: var(--neon-red);
 
     box-shadow:
         0 50px 100px rgba(0,0,0,0.95),
         inset 0 0 100px rgba(0,0,0,0.8),
         0 0 35px rgba(255,59,87,0.2);
+
 }
 
+
 .table.mood-gold {
+
     border-color: var(--gold-bright);
 
     box-shadow:
@@ -131,13 +287,22 @@ body {
         0 0 45px rgba(212,175,55,0.4);
 
     animation: golden-pulse 2s infinite alternate;
+
 }
 
+
+/* =========================================================
+   INNER RIM
+========================================================= */
+
 .inner-accent-rim {
+
     position: absolute;
+
     inset: 8px;
 
     border: 1px solid rgba(212,175,55,0.12);
+
     border-radius: 24px;
 
     pointer-events: none;
@@ -145,31 +310,45 @@ body {
     transition: border-color 1.2s ease;
 
     z-index: 1;
+
 }
+
 
 .table.mood-win .inner-accent-rim {
+
     border-color: rgba(0,255,170,0.2);
+
 }
+
 
 .table.mood-lose-streak .inner-accent-rim {
+
     border-color: rgba(255,59,87,0.2);
+
 }
+
 
 .table.mood-gold .inner-accent-rim {
+
     border-color: rgba(243,229,171,0.4);
+
 }
 
 
-/* =========================
+/* =========================================================
    HUD
-========================= */
+========================================================= */
 
 .hud {
+
     display: flex;
+
     justify-content: space-between;
+
     align-items: center;
 
     font-family: 'Cinzel', serif;
+
     font-size: 1.15rem;
 
     border-bottom: 1px solid rgba(212,175,55,0.15);
@@ -177,56 +356,83 @@ body {
     padding-bottom: 15px;
 
     z-index: 3;
+
 }
+
 
 .hud-left {
+
     display: flex;
+
     align-items: center;
+
     gap: 12px;
+
 }
 
+
 .balance-display {
+
     color: var(--gold);
+
     letter-spacing: 2px;
+
     font-weight: 900;
 
     transition: color 0.8s ease;
+
 }
+
 
 .table.mood-win .balance-display {
+
     color: var(--neon-green);
+
 }
+
 
 .table.mood-lose-streak .balance-display {
+
     color: var(--neon-red);
+
 }
+
 
 .table.mood-gold .balance-display {
+
     color: var(--gold-bright);
+
 }
 
 
-/* =========================
+/* =========================================================
    MODE SELECTOR
-========================= */
+========================================================= */
 
 .mode-selector {
+
     position: absolute;
 
     right: 8px;
+
     top: 130px;
 
     display: flex;
+
     flex-direction: column;
 
     gap: 7px;
 
     z-index: 5;
+
 }
+
 
 .mode-btn,
 .speed-switch {
+
     width: 38px;
+
     height: 38px;
 
     padding: 0;
@@ -253,7 +459,9 @@ body {
     cursor: pointer;
 
     display: flex;
+
     align-items: center;
+
     justify-content: center;
 
     box-shadow:
@@ -266,19 +474,25 @@ body {
         border-color 0.2s ease,
         box-shadow 0.2s ease,
         background 0.2s ease;
+
 }
+
 
 .mode-btn:hover,
 .speed-switch:hover {
+
     transform: translateX(-2px);
 
     color: var(--gold-bright);
 
     border-color: var(--gold);
+
 }
+
 
 .mode-btn.active,
 .speed-switch.active {
+
     color: #000;
 
     background:
@@ -293,41 +507,58 @@ body {
     box-shadow:
         0 0 14px rgba(212,175,55,0.45),
         inset 0 1px 0 rgba(255,255,255,0.6);
+
 }
+
 
 .mode-btn:active,
 .speed-switch:active {
+
     transform: scale(0.90);
+
 }
+
 
 .mode-btn:disabled {
+
     opacity: 0.35;
+
     cursor: not-allowed;
+
     transform: none;
+
 }
 
 
-/* =========================
-   SPEED BUTTON
-========================= */
+/* =========================================================
+   SPEED
+========================================================= */
 
 .speed-control {
+
     position: absolute;
 
     right: 8px;
+
     top: 267px;
 
     width: 38px;
+
     height: 38px;
 
     z-index: 5;
 
     display: flex;
+
     align-items: center;
+
     justify-content: center;
+
 }
 
+
 .speed-switch {
+
     margin: 0;
 
     font-size: 1rem;
@@ -335,23 +566,28 @@ body {
     line-height: 1;
 
     font-family: 'Space Grotesk', sans-serif;
+
 }
 
 
-/* =========================
+/* =========================================================
    SCORE
-========================= */
+========================================================= */
 
 .score-square {
+
     background: #000000;
 
     border: 2px solid var(--gold);
 
     width: 56px;
+
     height: 56px;
 
     display: flex;
+
     align-items: center;
+
     justify-content: center;
 
     font-family: 'Space Grotesk', sans-serif;
@@ -367,47 +603,61 @@ body {
 
     transition:
         all 0.5s cubic-bezier(0.25,1,0.5,1);
+
 }
 
+
 .score-square.glow {
+
     box-shadow:
         0 0 25px var(--neon-green),
         inset 0 0 10px rgba(0,255,170,0.3);
 
     border-color: var(--neon-green);
+
     color: var(--neon-green);
 
     transform: scale(1.08);
+
 }
 
+
 .score-square.glow-bust {
+
     box-shadow:
         0 0 25px var(--neon-red),
         inset 0 0 10px rgba(255,59,87,0.3);
 
     border-color: var(--neon-red);
+
     color: var(--neon-red);
 
     transform: scale(1.08);
+
 }
 
+
 .score-square.glow-gold {
+
     box-shadow:
         0 0 35px var(--gold-bright),
         inset 0 0 10px rgba(212,175,55,0.5);
 
     border-color: var(--gold-bright);
+
     color: var(--gold-bright);
 
     transform: scale(1.15) rotate(360deg);
+
 }
 
 
-/* =========================
+/* =========================================================
    PAYOUT MATRIX
-========================= */
+========================================================= */
 
 .matrix-container {
+
     background: rgba(0,0,0,0.5);
 
     backdrop-filter: blur(12px);
@@ -429,10 +679,14 @@ body {
     z-index: 2;
 
     transition: opacity 0.25s ease;
+
 }
 
+
 .matrix-row {
+
     display: flex;
+
     justify-content: center;
 
     gap: 12px;
@@ -449,17 +703,26 @@ body {
     background: rgba(255,255,255,0.02);
 
     border: 1px solid transparent;
+
 }
+
 
 .matrix-row span {
+
     font-weight: 700;
+
 }
+
 
 .matrix-row .mult-val {
+
     color: var(--gold);
+
 }
 
+
 .matrix-row.flash-win {
+
     background:
         linear-gradient(
             135deg,
@@ -475,14 +738,21 @@ body {
         0 8px 20px rgba(0,255,170,0.15);
 
     border-color: var(--neon-green);
+
 }
+
 
 .matrix-row.flash-win .mult-val {
+
     color: var(--neon-green);
+
     font-weight: 900;
+
 }
 
+
 .matrix-row.flash-gold {
+
     background:
         linear-gradient(
             135deg,
@@ -498,21 +768,29 @@ body {
         0 10px 25px rgba(212,175,55,0.4);
 
     border-color: var(--gold-bright);
+
 }
+
 
 .matrix-row.flash-gold .mult-val {
+
     color: var(--gold-bright);
+
     font-weight: 900;
+
 }
 
 
-/* =========================
+/* =========================================================
    CARDS
-========================= */
+========================================================= */
 
 .card-container {
+
     display: flex;
+
     justify-content: center;
+
     align-items: center;
 
     gap: 14px;
@@ -525,14 +803,23 @@ body {
 
     transition:
         transform 0.6s cubic-bezier(0.175,0.885,0.32,1.275);
+
 }
+
 
 .card-container.gold-lift {
-    transform: translateY(-8px) scale(1.03);
+
+    transform:
+        translateY(-8px)
+        scale(1.03);
+
 }
 
+
 .card-slot {
+
     width: 94px;
+
     height: 142px;
 
     position: relative;
@@ -541,57 +828,95 @@ body {
 
     transition:
         transform 0.6s cubic-bezier(0.34,1.56,0.64,1);
+
 }
+
 
 .card-slot.flipped {
+
     transform: rotateY(180deg);
+
 }
 
+
 .card-slot:hover {
+
     transform:
         translateY(-4px)
         scale(1.02);
+
 }
 
+
 .card-slot.flipped:hover {
+
     transform:
         rotateY(180deg)
         translateY(-4px)
         scale(1.02);
+
 }
+
 
 .table.mode-3 .card-slot {
+
     width: 94px;
+
     height: 142px;
+
 }
+
 
 .table.mode-3 .card-container {
+
     gap: 14px;
+
 }
+
 
 .table.mode-4 .card-slot {
+
     width: 82px;
+
     height: 128px;
+
 }
+
 
 .table.mode-4 .card-container {
+
     gap: 10px;
+
 }
+
 
 .table.mode-5 .card-slot {
+
     width: 65px;
+
     height: 112px;
+
 }
 
+
 .table.mode-5 .card-container {
+
     gap: 6px;
+
 }
+
+
+/* =========================================================
+   CARD FACES
+========================================================= */
 
 .card-front,
 .card-back {
+
     position: absolute;
 
     width: 100%;
+
     height: 100%;
 
     backface-visibility: hidden;
@@ -609,10 +934,11 @@ body {
 
     padding: 10px;
 
-    box-sizing: border-box;
 }
 
+
 .card-back {
+
     background:
         linear-gradient(
             135deg,
@@ -625,16 +951,23 @@ body {
     align-items: center;
 
     justify-content: center;
+
 }
 
+
 .card-back-pattern {
+
     width: 34px;
+
     height: 34px;
 
     opacity: 0.35;
+
 }
 
+
 .card-front {
+
     background:
         linear-gradient(
             145deg,
@@ -649,33 +982,50 @@ body {
     font-size: 1.4rem;
 
     font-weight: 700;
+
 }
 
+
 .card-front .art-wrapper {
+
     width: 46px;
+
     height: 46px;
 
     align-self: center;
 
     display: flex;
+
     align-items: center;
+
     justify-content: center;
+
 }
+
 
 .card-front svg {
+
     width: 100%;
+
     height: 100%;
+
 }
 
+
 .card-front .corner-suit {
+
     width: 12px;
+
     height: 12px;
 
     margin-top: 3px;
+
 }
+
 
 .card-front .top-corner,
 .card-front .bottom-corner {
+
     display: flex;
 
     flex-direction: column;
@@ -683,49 +1033,79 @@ body {
     align-items: center;
 
     line-height: 0.9;
+
 }
+
 
 .card-front .bottom-corner {
+
     transform: rotate(180deg);
+
 }
+
 
 .table.mode-4 .card-front {
+
     font-size: 1.15rem;
+
     padding: 8px;
+
 }
+
 
 .table.mode-4 .card-front .art-wrapper {
+
     width: 38px;
+
     height: 38px;
+
 }
+
 
 .table.mode-4 .card-front .corner-suit {
+
     width: 10px;
+
     height: 10px;
+
 }
+
 
 .table.mode-5 .card-front {
+
     font-size: 0.92rem;
+
     padding: 6px;
+
     border-radius: 9px;
+
 }
+
 
 .table.mode-5 .card-front .art-wrapper {
+
     width: 30px;
+
     height: 30px;
+
 }
+
 
 .table.mode-5 .card-front .corner-suit {
+
     width: 8px;
+
     height: 8px;
+
 }
 
 
-/* =========================
+/* =========================================================
    STATUS
-========================= */
+========================================================= */
 
 .status-box {
+
     font-family: 'Cinzel', serif;
 
     font-size: 1.3rem;
@@ -735,7 +1115,9 @@ body {
     font-weight: 900;
 
     display: flex;
+
     align-items: center;
+
     justify-content: center;
 
     letter-spacing: 2px;
@@ -745,25 +1127,34 @@ body {
     transition: all 0.4s ease;
 
     z-index: 2;
+
 }
 
+
 .neon-glow-win {
+
     color: var(--neon-green) !important;
 
     text-shadow:
         0 0 8px rgba(0,255,170,0.8),
         0 0 20px rgba(0,255,170,0.4);
+
 }
 
+
 .neon-glow-bust {
+
     color: var(--neon-red) !important;
 
     text-shadow:
         0 0 8px rgba(255,59,87,0.8),
         0 0 20px rgba(255,59,87,0.4);
+
 }
 
+
 .neon-glow-gold {
+
     color: var(--gold-bright) !important;
 
     text-shadow:
@@ -773,24 +1164,31 @@ body {
 
     animation:
         gold-text-shimmer 1s infinite alternate;
+
 }
 
 
-/* =========================
+/* =========================================================
    CONTROLS
-========================= */
+========================================================= */
 
 .controls {
+
     display: flex;
+
     justify-content: center;
+
     align-items: center;
 
     gap: 15px;
 
     z-index: 2;
+
 }
 
+
 input[type="number"] {
+
     background: #000000;
 
     border: 2px solid var(--gold);
@@ -813,17 +1211,23 @@ input[type="number"] {
         inset 0 4px 8px rgba(0,0,0,0.7);
 
     transition: all 0.3s ease;
+
 }
 
+
 input[type="number"]:focus {
+
     outline: none;
 
     border-color: #ffffff;
 
     color: #ffffff;
+
 }
 
+
 button {
+
     background:
         linear-gradient(
             180deg,
@@ -852,9 +1256,12 @@ button {
         all 0.3s cubic-bezier(0.16,1,0.3,1);
 
     letter-spacing: 2px;
+
 }
 
+
 button:hover {
+
     background:
         linear-gradient(
             180deg,
@@ -866,14 +1273,21 @@ button:hover {
 
     box-shadow:
         0 12px 28px rgba(212,175,55,0.25);
+
 }
+
 
 button:active {
+
     transform: translateY(1px);
+
 }
 
+
 button:disabled {
+
     background: #131619;
+
     color: #3e4247;
 
     cursor: not-allowed;
@@ -881,109 +1295,207 @@ button:disabled {
     transform: none;
 
     box-shadow: none;
+
 }
 
 
-/* =========================
+/* =========================================================
    ANIMATIONS
-========================= */
+========================================================= */
 
 @keyframes gold-text-shimmer {
+
     0% {
+
         transform: scale(1);
+
         filter: brightness(1);
+
     }
 
     100% {
+
         transform: scale(1.02);
+
         filter: brightness(1.2);
+
     }
+
 }
 
+
 @keyframes golden-pulse {
+
     0% {
+
         box-shadow:
             0 60px 120px rgba(0,0,0,0.95),
             inset 0 0 100px rgba(0,0,0,0.7),
             0 0 35px rgba(212,175,55,0.3);
+
     }
 
     100% {
+
         box-shadow:
             0 60px 120px rgba(0,0,0,0.95),
             inset 0 0 100px rgba(0,0,0,0.7),
             0 0 55px rgba(212,175,55,0.6);
+
     }
+
 }
 
 
-/* =========================
+/* =========================================================
    MOBILE
-========================= */
+========================================================= */
 
 @media (max-width: 430px) {
 
     body {
+
         padding: 8px;
+
     }
 
     .table {
+
         height: 640px;
+
         padding: 28px 18px;
+
     }
 
     .mode-selector {
+
         right: 5px;
+
         top: 120px;
+
     }
 
     .mode-btn,
     .speed-switch {
+
         width: 34px;
+
         height: 34px;
 
         font-size: 0.85rem;
+
     }
 
     .speed-control {
+
         right: 5px;
+
         top: 242px;
 
         width: 34px;
+
         height: 34px;
+
     }
 
     .table.mode-3 .card-slot {
+
         width: 82px;
+
         height: 128px;
+
     }
 
     .table.mode-4 .card-slot {
+
         width: 73px;
+
         height: 118px;
+
     }
 
     .table.mode-5 .card-slot {
+
         width: 57px;
+
         height: 105px;
+
     }
 
     .table.mode-5 .card-container {
+
         gap: 4px;
+
     }
+
 }
+
+
+/* =========================================================
+   VERY SMALL PHONES
+========================================================= */
+
+@media (max-height: 700px) {
+
+    .table {
+
+        height: 620px;
+
+        padding-top: 22px;
+
+        padding-bottom: 22px;
+
+    }
+
+}
+
+
+/* =========================================================
+   SAFE AREA FOR MODERN IPHONES
+========================================================= */
+
+@supports (padding: env(safe-area-inset-top)) {
+
+    body {
+
+        padding-top:
+            max(8px, env(safe-area-inset-top));
+
+        padding-bottom:
+            max(8px, env(safe-area-inset-bottom));
+
+        padding-left:
+            max(8px, env(safe-area-inset-left));
+
+        padding-right:
+            max(8px, env(safe-area-inset-right));
+
+    }
+
+}
+
 </style>
+
 </head>
+
 
 <body>
 
-<div class="table mode-4" id="blackjack-table">
+
+<div
+    class="table mode-4"
+    id="blackjack-table"
+>
+
 
     <div class="table-gold-layer"></div>
+
     <div class="inner-accent-rim"></div>
 
 
-    <!-- HUD -->
+    <!-- =====================================================
+         HUD
+    ====================================================== -->
 
     <div class="hud">
 
@@ -993,49 +1505,69 @@ button:disabled {
 
                 <span id="txt-balance">
                     BALANCE
-                </span>:
+                </span>
+
+                :
 
                 <span id="balance">
-                    100.00
-                </span>$
+                    100
+                </span>
+
+                $
 
             </div>
 
         </div>
 
-        <div class="score-square" id="score-box">
+
+        <div
+            class="score-square"
+            id="score-box"
+        >
+
             0
+
         </div>
 
     </div>
 
 
-    <!-- MODE BUTTONS -->
+    <!-- =====================================================
+         MODE BUTTONS
+    ====================================================== -->
 
     <div class="mode-selector">
 
         <button
             class="mode-btn"
             id="mode-3"
-            onclick="setMode(3)">
+            onclick="setMode(3)"
+            type="button"
+        >
 
             3
 
         </button>
 
+
         <button
             class="mode-btn active"
             id="mode-4"
-            onclick="setMode(4)">
+            onclick="setMode(4)"
+            type="button"
+        >
 
             4
 
         </button>
 
+
         <button
             class="mode-btn"
             id="mode-5"
-            onclick="setMode(5)">
+            onclick="setMode(5)"
+            type="button"
+        >
 
             5
 
@@ -1044,7 +1576,9 @@ button:disabled {
     </div>
 
 
-    <!-- SPEED MODE -->
+    <!-- =====================================================
+         SPEED MODE
+    ====================================================== -->
 
     <div class="speed-control">
 
@@ -1053,7 +1587,8 @@ button:disabled {
             id="speed-switch"
             onclick="toggleSpeed()"
             aria-label="Toggle speed mode"
-            type="button">
+            type="button"
+        >
 
             ~
 
@@ -1062,75 +1597,126 @@ button:disabled {
     </div>
 
 
-    <!-- PAYOUT MATRIX -->
+    <!-- =====================================================
+         PAYOUT MATRIX
+    ====================================================== -->
 
     <div class="matrix-container">
 
-        <div class="matrix-row" id="m-16">
-            <span>16</span>
-            <span class="mult-val">2x</span>
+
+        <div
+            class="matrix-row"
+            id="m-16"
+        >
+
+            <span>
+                16
+            </span>
+
+            <span class="mult-val">
+                2x
+            </span>
+
         </div>
 
-        <div class="matrix-row" id="m-19">
-            <span>19</span>
-            <span class="mult-val">4x</span>
+
+        <div
+            class="matrix-row"
+            id="m-19"
+        >
+
+            <span>
+                19
+            </span>
+
+            <span class="mult-val">
+                4x
+            </span>
+
         </div>
 
-        <div class="matrix-row" id="m-17">
-            <span>17</span>
-            <span class="mult-val">2.1x</span>
+
+        <div
+            class="matrix-row"
+            id="m-17"
+        >
+
+            <span>
+                17
+            </span>
+
+            <span class="mult-val">
+                2.1x
+            </span>
+
         </div>
 
-        <div class="matrix-row" id="m-20">
-            <span>20</span>
-            <span class="mult-val">4.8x</span>
+
+        <div
+            class="matrix-row"
+            id="m-20"
+        >
+
+            <span>
+                20
+            </span>
+
+            <span class="mult-val">
+                4.8x
+            </span>
+
         </div>
 
-        <div class="matrix-row" id="m-18">
-            <span>18</span>
-            <span class="mult-val">3.5x</span>
+
+        <div
+            class="matrix-row"
+            id="m-18"
+        >
+
+            <span>
+                18
+            </span>
+
+            <span class="mult-val">
+                3.5x
+            </span>
+
         </div>
 
-        <div class="matrix-row" id="m-21">
-            <span>21</span>
-            <span class="mult-val">10x</span>
+
+        <div
+            class="matrix-row"
+            id="m-21"
+        >
+
+            <span>
+                21
+            </span>
+
+            <span class="mult-val">
+                10x
+            </span>
+
         </div>
+
 
     </div>
 
 
-    <!-- CARDS -->
+    <!-- =====================================================
+         CARDS
+    ====================================================== -->
 
     <div
         class="card-container"
-        id="card-holder">
-
-        <div class="card-slot" id="slot-0">
-
-            <div class="card-back">
-
-                <svg
-                    class="card-back-pattern"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="#d4af37"
-                    stroke-width="1.5">
-
-                    <path d="M12 2L2 12l10 10 10-10L12 2z M12 6l6 6-6 6-6-6Z"/>
-
-                </svg>
-
-            </div>
-
-            <div
-                class="card-front"
-                id="front-0">
-            </div>
-
-        </div>
+        id="card-holder"
+    >
 
 
-        <div class="card-slot" id="slot-1">
+        <div
+            class="card-slot"
+            id="slot-0"
+        >
 
             <div class="card-back">
 
@@ -1139,23 +1725,30 @@ button:disabled {
                     viewBox="0 0 24 24"
                     fill="none"
                     stroke="#d4af37"
-                    stroke-width="1.5">
+                    stroke-width="1.5"
+                >
 
-                    <path d="M12 2L2 12l10 10 10-10L12 2z M12 6l6 6-6 6-6-6Z"/>
+                    <path
+                        d="M12 2L2 12l10 10 10-10L12 2z M12 6l6 6-6 6-6-6Z"
+                    />
 
                 </svg>
 
             </div>
 
+
             <div
                 class="card-front"
-                id="front-1">
-            </div>
+                id="front-0"
+            ></div>
 
         </div>
 
 
-        <div class="card-slot" id="slot-2">
+        <div
+            class="card-slot"
+            id="slot-1"
+        >
 
             <div class="card-back">
 
@@ -1164,23 +1757,30 @@ button:disabled {
                     viewBox="0 0 24 24"
                     fill="none"
                     stroke="#d4af37"
-                    stroke-width="1.5">
+                    stroke-width="1.5"
+                >
 
-                    <path d="M12 2L2 12l10 10 10-10L12 2z M12 6l6 6-6 6-6-6Z"/>
+                    <path
+                        d="M12 2L2 12l10 10 10-10L12 2z M12 6l6 6-6 6-6-6Z"
+                    />
 
                 </svg>
 
             </div>
 
+
             <div
                 class="card-front"
-                id="front-2">
-            </div>
+                id="front-1"
+            ></div>
 
         </div>
 
 
-        <div class="card-slot" id="slot-3">
+        <div
+            class="card-slot"
+            id="slot-2"
+        >
 
             <div class="card-back">
 
@@ -1189,23 +1789,30 @@ button:disabled {
                     viewBox="0 0 24 24"
                     fill="none"
                     stroke="#d4af37"
-                    stroke-width="1.5">
+                    stroke-width="1.5"
+                >
 
-                    <path d="M12 2L2 12l10 10 10-10L12 2z M12 6l6 6-6 6-6-6Z"/>
+                    <path
+                        d="M12 2L2 12l10 10 10-10L12 2z M12 6l6 6-6 6-6-6Z"
+                    />
 
                 </svg>
 
             </div>
 
+
             <div
                 class="card-front"
-                id="front-3">
-            </div>
+                id="front-2"
+            ></div>
 
         </div>
 
 
-        <div class="card-slot" id="slot-4">
+        <div
+            class="card-slot"
+            id="slot-3"
+        >
 
             <div class="card-back">
 
@@ -1214,36 +1821,78 @@ button:disabled {
                     viewBox="0 0 24 24"
                     fill="none"
                     stroke="#d4af37"
-                    stroke-width="1.5">
+                    stroke-width="1.5"
+                >
 
-                    <path d="M12 2L2 12l10 10 10-10L12 2z M12 6l6 6-6 6-6-6Z"/>
+                    <path
+                        d="M12 2L2 12l10 10 10-10L12 2z M12 6l6 6-6 6-6-6Z"
+                    />
 
                 </svg>
 
             </div>
 
+
             <div
                 class="card-front"
-                id="front-4">
-            </div>
+                id="front-3"
+            ></div>
 
         </div>
+
+
+        <div
+            class="card-slot"
+            id="slot-4"
+        >
+
+            <div class="card-back">
+
+                <svg
+                    class="card-back-pattern"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="#d4af37"
+                    stroke-width="1.5"
+                >
+
+                    <path
+                        d="M12 2L2 12l10 10 10-10L12 2z M12 6l6 6-6 6-6-6Z"
+                    />
+
+                </svg>
+
+            </div>
+
+
+            <div
+                class="card-front"
+                id="front-4"
+            ></div>
+
+        </div>
+
 
     </div>
 
 
-    <!-- STATUS -->
+    <!-- =====================================================
+         STATUS
+    ====================================================== -->
 
     <div
         class="status-box"
-        id="status-message">
+        id="status-message"
+    >
 
         PLACE BET TO START
 
     </div>
 
 
-    <!-- CONTROLS -->
+    <!-- =====================================================
+         CONTROLS
+    ====================================================== -->
 
     <div class="controls">
 
@@ -1251,11 +1900,16 @@ button:disabled {
             type="number"
             id="bet-input"
             value="2"
-            min="2">
+            min="2"
+            inputmode="decimal"
+        >
+
 
         <button
             id="deal-btn"
-            onclick="playRound()">
+            onclick="playRound()"
+            type="button"
+        >
 
             DEAL HAND
 
@@ -1263,10 +1917,108 @@ button:disabled {
 
     </div>
 
+
 </div>
 
 
 <script>
+
+/* =========================================================
+   MOBILE DOUBLE-TAP ZOOM PROTECTION
+========================================================= */
+
+/*
+    Prevents the browser from interpreting
+    two quick taps as a zoom gesture.
+*/
+
+let lastTouchEnd = 0;
+
+
+document.addEventListener(
+    'touchend',
+    function(event) {
+
+        const now =
+            Date.now();
+
+        if (
+            now - lastTouchEnd <= 300
+        ) {
+
+            event.preventDefault();
+
+        }
+
+        lastTouchEnd =
+            now;
+
+    },
+    {
+        passive: false
+    }
+);
+
+
+/*
+    Extra protection for iOS Safari gesture zoom.
+*/
+
+document.addEventListener(
+    'gesturestart',
+    function(event) {
+
+        event.preventDefault();
+
+    },
+    {
+        passive: false
+    }
+);
+
+
+document.addEventListener(
+    'gesturechange',
+    function(event) {
+
+        event.preventDefault();
+
+    },
+    {
+        passive: false
+    }
+);
+
+
+document.addEventListener(
+    'gestureend',
+    function(event) {
+
+        event.preventDefault();
+
+    },
+    {
+        passive: false
+    }
+);
+
+
+/*
+    Prevent native double-click zoom.
+*/
+
+document.addEventListener(
+    'dblclick',
+    function(event) {
+
+        event.preventDefault();
+
+    },
+    {
+        passive: false
+    }
+);
+
 
 /* =========================================================
    GAME STATE
@@ -1365,17 +2117,20 @@ const cardArtworks = {
 
         <path
             d="M50,15 C44,35 20,44 20,60 C20,74 32,77 50,68 C68,77 80,74 80,60 C80,44 56,35 50,15 Z"
-            fill="#1c1e21"/>
+            fill="#1c1e21"
+        />
 
         <path
             d="M50,62 L42,85 L58,85 Z"
-            fill="#1c1e21"/>
+            fill="#1c1e21"
+        />
 
         <path
             d="M50,17 C45,35 22,44 22,60 C22,72 32,74 50,65 C68,74 78,72 78,60 C78,44 55,35 50,17 Z"
             fill="none"
             stroke="#d4af37"
-            stroke-width="1.5"/>
+            stroke-width="1.5"
+        />
 
     </svg>`,
 
@@ -1385,13 +2140,15 @@ const cardArtworks = {
 
         <path
             d="M50,26 C50,8 22,6 22,32 C22,56 50,84 50,84 C50,84 78,56 78,32 C78,6 50,8 50,26 Z"
-            fill="#ba1225"/>
+            fill="#ba1225"
+        />
 
         <path
             d="M50,29 C50,13 25,11 25,32 C25,52 50,77 50,77 C50,77 75,52 75,32 C75,13 50,29 50,29 Z"
             fill="none"
             stroke="#d4af37"
-            stroke-width="1.5"/>
+            stroke-width="1.5"
+        />
 
     </svg>`,
 
@@ -1401,13 +2158,15 @@ const cardArtworks = {
 
         <path
             d="M50,12 L16,50 L50,88 L84,50 Z"
-            fill="#ba1225"/>
+            fill="#ba1225"
+        />
 
         <path
             d="M50,17 L21,50 L50,83 L79,50 Z"
             fill="none"
             stroke="#d4af37"
-            stroke-width="1.5"/>
+            stroke-width="1.5"
+        />
 
     </svg>`,
 
@@ -1419,23 +2178,27 @@ const cardArtworks = {
             cx="50"
             cy="32"
             r="16"
-            fill="#1c1e21"/>
+            fill="#1c1e21"
+        />
 
         <circle
             cx="33"
             cy="56"
             r="16"
-            fill="#1c1e21"/>
+            fill="#1c1e21"
+        />
 
         <circle
             cx="67"
             cy="56"
             r="16"
-            fill="#1c1e21"/>
+            fill="#1c1e21"
+        />
 
         <path
             d="M50,50 L42,85 L58,85 Z"
-            fill="#1c1e21"/>
+            fill="#1c1e21"
+        />
 
         <circle
             cx="50"
@@ -1443,7 +2206,8 @@ const cardArtworks = {
             r="13"
             fill="none"
             stroke="#d4af37"
-            stroke-width="1.5"/>
+            stroke-width="1.5"
+        />
 
         <circle
             cx="33"
@@ -1451,7 +2215,8 @@ const cardArtworks = {
             r="13"
             fill="none"
             stroke="#d4af37"
-            stroke-width="1.5"/>
+            stroke-width="1.5"
+        />
 
         <circle
             cx="67"
@@ -1459,12 +2224,17 @@ const cardArtworks = {
             r="13"
             fill="none"
             stroke="#d4af37"
-            stroke-width="1.5"/>
+            stroke-width="1.5"
+        />
 
     </svg>`
 
 };
 
+
+/* =========================================================
+   MINI SUITS
+========================================================= */
 
 const miniVectors = {
 
@@ -1473,10 +2243,12 @@ const miniVectors = {
     `<svg
         class="corner-suit"
         viewBox="0 0 24 24"
-        fill="#1c1e21">
+        fill="#1c1e21"
+    >
 
         <path
-            d="M12 2C11.5 2 10 5 10 8c0 2.2 1.8 4 4 4s4-1.8 4-4c0-3-1.5-6-2-6zm0 11c-2.2 0-4 1.8-4 4 0 2 1.5 3 3.5 3 .5 0 1 1 1 2h3c0-1 .5-2 1-2 2 0 3.5-1 3.5-3 0-2.2-1.8-4-4-4z"/>
+            d="M12 2C11.5 2 10 5 10 8c0 2.2 1.8 4 4 4s4-1.8 4-4c0-3-1.5-6-2-6zm0 11c-2.2 0-4 1.8-4 4 0 2 1.5 3 3.5 3 .5 0 1 1 1 2h3c0-1 .5-2 1-2 2 0 3.5-1 3.5-3 0-2.2-1.8-4-4-4z"
+        />
 
     </svg>`,
 
@@ -1485,10 +2257,12 @@ const miniVectors = {
     `<svg
         class="corner-suit"
         viewBox="0 0 24 24"
-        fill="#ba1225">
+        fill="#ba1225"
+    >
 
         <path
-            d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.5 3 21 5.42 21 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+            d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.5 3 21 5.42 21 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"
+        />
 
     </svg>`,
 
@@ -1497,10 +2271,12 @@ const miniVectors = {
     `<svg
         class="corner-suit"
         viewBox="0 0 24 24"
-        fill="#ba1225">
+        fill="#ba1225"
+    >
 
         <path
-            d="M12 2L2 12l10 10 10-10L12 2z"/>
+            d="M12 2L2 12l10 10 10-10L12 2z"
+        />
 
     </svg>`,
 
@@ -1509,15 +2285,21 @@ const miniVectors = {
     `<svg
         class="corner-suit"
         viewBox="0 0 24 24"
-        fill="#1c1e21">
+        fill="#1c1e21"
+    >
 
         <path
-            d="M12 9.5a3.5 3.5 0 1 0-3.5-3.5A3.5 3.5 0 0 0 12 9.5zm-4.5 7a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7zm9 0a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7zm-4.5.5a1.5 1.5 0 0 0-1.5 1.5v2.5h3v-2.5a1.5 1.5 0 0 0-1.5-1.5z"/>
+            d="M12 9.5a3.5 3.5 0 1 0-3.5-3.5A3.5 3.5 0 0 0 12 9.5zm-4.5 7a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7zm9 0a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7zm-4.5.5a1.5 1.5 0 0 0-1.5 1.5v2.5h3v-2.5a1.5 1.5 0 0 0-1.5-1.5z"
+        />
 
     </svg>`
 
 };
 
+
+/* =========================================================
+   SUITS
+========================================================= */
 
 const suits = [
 
@@ -1553,6 +2335,7 @@ const suits = [
 
 
 const values = [
+
     'A',
     '2',
     '3',
@@ -1566,6 +2349,7 @@ const values = [
     'J',
     'Q',
     'K'
+
 ];
 
 
@@ -1584,6 +2368,145 @@ function initAudio() {
             )();
 
     }
+
+    if (
+        audioCtx.state === 'suspended'
+    ) {
+
+        audioCtx.resume();
+
+    }
+
+}
+
+
+function playClickSound() {
+
+    initAudio();
+
+    if (!audioCtx) return;
+
+    const now =
+        audioCtx.currentTime;
+
+    const osc =
+        audioCtx.createOscillator();
+
+    const gain =
+        audioCtx.createGain();
+
+    osc.connect(gain);
+
+    gain.connect(
+        audioCtx.destination
+    );
+
+    osc.type =
+        'sine';
+
+    osc.frequency.setValueAtTime(
+        420,
+        now
+    );
+
+    osc.frequency.exponentialRampToValueAtTime(
+        760,
+        now + 0.07
+    );
+
+    gain.gain.setValueAtTime(
+        0.0001,
+        now
+    );
+
+    gain.gain.exponentialRampToValueAtTime(
+        0.045,
+        now + 0.01
+    );
+
+    gain.gain.exponentialRampToValueAtTime(
+        0.0001,
+        now + 0.11
+    );
+
+    osc.start(now);
+
+    osc.stop(
+        now + 0.12
+    );
+
+}
+
+
+/* =========================================================
+   SPEED SOUND
+========================================================= */
+
+function playSpeedSound(active) {
+
+    initAudio();
+
+    if (!audioCtx) return;
+
+    const now =
+        audioCtx.currentTime;
+
+    const frequencies =
+        active
+            ? [330,494,659]
+            : [659,494,330];
+
+
+    frequencies.forEach(
+        (freq,index) => {
+
+            const osc =
+                audioCtx.createOscillator();
+
+            const gain =
+                audioCtx.createGain();
+
+            osc.connect(gain);
+
+            gain.connect(
+                audioCtx.destination
+            );
+
+            osc.type =
+                'triangle';
+
+            const start =
+                now +
+                index * 0.055;
+
+            osc.frequency.setValueAtTime(
+                freq,
+                start
+            );
+
+            gain.gain.setValueAtTime(
+                0.0001,
+                start
+            );
+
+            gain.gain.exponentialRampToValueAtTime(
+                0.045,
+                start + 0.015
+            );
+
+            gain.gain.exponentialRampToValueAtTime(
+                0.0001,
+                start + 0.13
+            );
+
+            osc.start(start);
+
+            osc.stop(
+                start + 0.14
+            );
+
+        }
+    );
 
 }
 
@@ -1611,9 +2534,10 @@ function playSoundEffect(type) {
             audioCtx.createGain();
 
         osc.connect(gain);
-        gain.connect(audioCtx.destination);
 
-        osc.type = 'sine';
+        gain.connect(
+            audioCtx.destination
+        );
 
         osc.frequency.setValueAtTime(
             280,
@@ -1662,7 +2586,10 @@ function playSoundEffect(type) {
                     audioCtx.createGain();
 
                 osc.connect(gain);
-                gain.connect(audioCtx.destination);
+
+                gain.connect(
+                    audioCtx.destination
+                );
 
                 osc.type =
                     'sine';
@@ -1678,7 +2605,7 @@ function playSoundEffect(type) {
 
                 gain.gain.setValueAtTime(
                     0,
-                    start
+                    now
                 );
 
                 gain.gain.linearRampToValueAtTime(
@@ -1722,7 +2649,10 @@ function playSoundEffect(type) {
                     audioCtx.createGain();
 
                 osc.connect(gain);
-                gain.connect(audioCtx.destination);
+
+                gain.connect(
+                    audioCtx.destination
+                );
 
                 osc.type =
                     'sine';
@@ -1738,7 +2668,7 @@ function playSoundEffect(type) {
 
                 gain.gain.setValueAtTime(
                     0,
-                    start
+                    now
                 );
 
                 gain.gain.linearRampToValueAtTime(
@@ -1772,7 +2702,10 @@ function playSoundEffect(type) {
             audioCtx.createGain();
 
         osc.connect(gain);
-        gain.connect(audioCtx.destination);
+
+        gain.connect(
+            audioCtx.destination
+        );
 
         osc.type =
             'triangle';
@@ -1812,75 +2745,6 @@ function playSoundEffect(type) {
    SPEED MODE
 ========================================================= */
 
-function playSpeedSound(active) {
-
-    initAudio();
-
-    if (!audioCtx) return;
-
-    const now =
-        audioCtx.currentTime;
-
-    const frequencies =
-        active
-            ? [330,494,659]
-            : [659,494,330];
-
-    frequencies.forEach(
-        (freq,index) => {
-
-            const osc =
-                audioCtx.createOscillator();
-
-            const gain =
-                audioCtx.createGain();
-
-            osc.connect(gain);
-            gain.connect(audioCtx.destination);
-
-            osc.type =
-                'triangle';
-
-            const start =
-                now +
-                index * 0.055;
-
-            osc.frequency.setValueAtTime(
-                freq,
-                start
-            );
-
-            gain.gain.setValueAtTime(
-                0.0001,
-                start
-            );
-
-            gain.gain.exponentialRampToValueAtTime(
-                0.045,
-                start + 0.015
-            );
-
-            gain.gain.exponentialRampToValueAtTime(
-                0.0001,
-                start + 0.13
-            );
-
-            osc.start(start);
-
-            osc.stop(
-                start + 0.14
-            );
-
-        }
-    );
-
-}
-
-
-/* =========================================================
-   SPEED TOGGLE
-========================================================= */
-
 function toggleSpeed() {
 
     speedMode =
@@ -1917,9 +2781,13 @@ function setMode(mode) {
 
     if (mode === currentMode) {
 
+        playClickSound();
+
         return;
 
     }
+
+    playClickSound();
 
     currentMode =
         mode;
@@ -1939,6 +2807,7 @@ function setMode(mode) {
         `mode-${mode}`
     );
 
+
     document
         .querySelectorAll('.mode-btn')
         .forEach(
@@ -1951,6 +2820,7 @@ function setMode(mode) {
             }
         );
 
+
     document
         .getElementById(
             `mode-${mode}`
@@ -1959,9 +2829,11 @@ function setMode(mode) {
             'active'
         );
 
+
     updateMatrix();
 
     resetCards();
+
 
     document
         .getElementById(
@@ -1970,16 +2842,20 @@ function setMode(mode) {
         .innerText =
             "0";
 
+
     currentGameStatus =
         'idle';
+
 
     const status =
         document.getElementById(
             'status-message'
         );
 
+
     status.className =
         'status-box';
+
 
     status.innerText =
         'PLACE BET TO START';
@@ -1996,6 +2872,7 @@ function updateMatrix() {
     const multipliers =
         modeMultipliers[currentMode];
 
+
     Object.keys(multipliers)
         .forEach(
             total => {
@@ -2007,8 +2884,10 @@ function updateMatrix() {
 
                 if (!row) return;
 
+
                 const multiplier =
                     multipliers[total];
+
 
                 row.querySelector(
                     '.mult-val'
@@ -2038,19 +2917,23 @@ function resetCards() {
                 `slot-${i}`
             );
 
+
         slot.classList.remove(
             'flipped'
         );
+
 
         const front =
             document.getElementById(
                 `front-${i}`
             );
 
+
         front.innerHTML =
             '';
 
     }
+
 
     for (
         let i = 0;
@@ -2062,6 +2945,7 @@ function resetCards() {
             document.getElementById(
                 `slot-${i}`
             );
+
 
         slot.style.display =
             i < currentMode
@@ -2086,11 +2970,13 @@ function calculateHand(hand) {
             0
         );
 
+
     let aces =
         hand.filter(
             card =>
                 card.value === 'A'
         ).length;
+
 
     while (
         total > 21 &&
@@ -2102,6 +2988,7 @@ function calculateHand(hand) {
         aces--;
 
     }
+
 
     return total;
 
@@ -2120,8 +3007,10 @@ function getMultiplier(total) {
 
     }
 
+
     const mode =
         modeMultipliers[currentMode];
+
 
     return mode[total] || 0;
 
@@ -2137,21 +3026,26 @@ function setRoundLock(locked) {
     roundActive =
         locked;
 
+
     const dealBtn =
         document.getElementById(
             'deal-btn'
         );
+
 
     const betInput =
         document.getElementById(
             'bet-input'
         );
 
+
     dealBtn.disabled =
         locked;
 
+
     betInput.disabled =
         locked;
+
 
     document
         .querySelectorAll('.mode-btn')
@@ -2179,30 +3073,36 @@ function playRound() {
 
     }
 
+
     const betInput =
         document.getElementById(
             'bet-input'
         );
+
 
     const scoreBox =
         document.getElementById(
             'score-box'
         );
 
+
     const status =
         document.getElementById(
             'status-message'
         );
+
 
     const table =
         document.getElementById(
             'blackjack-table'
         );
 
+
     const cardsContainer =
         document.getElementById(
             'card-holder'
         );
+
 
     const bet =
         parseFloat(
@@ -2210,22 +3110,19 @@ function playRound() {
         );
 
 
-    /* =====================================================
-       BET VALIDATION
-    ===================================================== */
-
     if (
         isNaN(bet) ||
         bet < minBet
     ) {
 
         alert(
-            `Min bet is $${minBet}!`
+            `Min bet is ${minBet}$!`
         );
 
         return;
 
     }
+
 
     if (
         bet > balance
@@ -2240,11 +3137,8 @@ function playRound() {
     }
 
 
-    /* =====================================================
-       START ROUND
-    ===================================================== */
-
     setRoundLock(true);
+
 
     table.classList.remove(
         'mood-win',
@@ -2252,21 +3146,27 @@ function playRound() {
         'mood-gold'
     );
 
+
     cardsContainer.classList.remove(
         'gold-lift'
     );
 
+
     status.className =
         'status-box';
+
 
     scoreBox.className =
         'score-square';
 
+
     scoreBox.innerText =
         "0";
 
+
     currentGameStatus =
         'dealing';
+
 
     status.innerHTML =
         'DEALING...';
@@ -2285,9 +3185,12 @@ function playRound() {
             }
         );
 
+
     resetCards();
 
+
     balance -= bet;
+
 
     document.getElementById(
         'balance'
@@ -2301,6 +3204,7 @@ function playRound() {
 
     let deck = [];
 
+
     for (
         let suit of suits
     ) {
@@ -2312,6 +3216,7 @@ function playRound() {
             let weight =
                 parseInt(value);
 
+
             if (
                 ['J','Q','K']
                 .includes(value)
@@ -2322,6 +3227,7 @@ function playRound() {
 
             }
 
+
             if (
                 value === 'A'
             ) {
@@ -2330,6 +3236,7 @@ function playRound() {
                     11;
 
             }
+
 
             deck.push({
 
@@ -2350,6 +3257,7 @@ function playRound() {
 
     let hand = [];
 
+
     for (
         let i = 0;
         i < currentMode;
@@ -2361,6 +3269,7 @@ function playRound() {
                 Math.random() *
                 deck.length
             );
+
 
         hand.push(
             deck.splice(
@@ -2400,8 +3309,10 @@ function playRound() {
                                     `front-${index}`
                                 );
 
+
                             frontSide.className =
                                 `card-front ${card.suit.name}`;
+
 
                             frontSide.innerHTML = `
 
@@ -2415,11 +3326,13 @@ function playRound() {
 
                                 </div>
 
+
                                 <div class="art-wrapper">
 
                                     ${card.suit.markup}
 
                                 </div>
+
 
                                 <div class="bottom-corner">
 
@@ -2433,6 +3346,7 @@ function playRound() {
 
                             `;
 
+
                             document
                                 .getElementById(
                                     `slot-${index}`
@@ -2441,9 +3355,11 @@ function playRound() {
                                     'flipped'
                                 );
 
+
                             playSoundEffect(
                                 'flip'
                             );
+
 
                             scoreBox.innerText =
                                 calculateHand(
@@ -2470,15 +3386,16 @@ function playRound() {
 
     /* =====================================================
        FINISH ROUND
-
-       Result appears as soon as the final
-       card animation begins.
+       RESULT APPEARS WHEN FINAL CARD STARTS
     ===================================================== */
 
     const finalDelay =
         timing.startDelay +
-        ((currentMode - 1) *
-            timing.cardDelay);
+
+        (
+            (currentMode - 1) *
+            timing.cardDelay
+        );
 
 
     setTimeout(
@@ -2487,14 +3404,18 @@ function playRound() {
             const total =
                 calculateHand(hand);
 
+
             const mult =
                 getMultiplier(total);
+
 
             const winnings =
                 bet * mult;
 
+
             balance +=
                 winnings;
+
 
             document.getElementById(
                 'balance'
@@ -2513,17 +3434,21 @@ function playRound() {
                 lossStreakCount =
                     0;
 
+
                 table.classList.add(
                     'mood-gold'
                 );
+
 
                 cardsContainer.classList.add(
                     'gold-lift'
                 );
 
+
                 scoreBox.classList.add(
                     'glow-gold'
                 );
+
 
                 document
                     .getElementById(
@@ -2533,14 +3458,18 @@ function playRound() {
                         'flash-gold'
                     );
 
+
                 status.className =
                     'status-box neon-glow-gold';
+
 
                 currentGameStatus =
                     `gold_${winnings.toFixed(2)}`;
 
+
                 status.innerHTML =
-                    `👑 CAPTAIN 21 (+$${winnings.toFixed(2)}) 👑`;
+                    `👑 CAPTAIN 21 (+${winnings.toFixed(2)}$) 👑`;
+
 
                 playSoundEffect(
                     'gold'
@@ -2560,13 +3489,16 @@ function playRound() {
                 lossStreakCount =
                     0;
 
+
                 table.classList.add(
                     'mood-win'
                 );
 
+
                 scoreBox.classList.add(
                     'glow'
                 );
+
 
                 document
                     .getElementById(
@@ -2576,14 +3508,18 @@ function playRound() {
                         'flash-win'
                     );
 
+
                 status.className =
                     'status-box neon-glow-win';
+
 
                 currentGameStatus =
                     `win_${winnings.toFixed(2)}`;
 
+
                 status.innerHTML =
-                    `WINNER (+$${winnings.toFixed(2)})`;
+                    `WINNER (+${winnings.toFixed(2)}$)`;
+
 
                 playSoundEffect(
                     'win'
@@ -2600,22 +3536,28 @@ function playRound() {
 
                 lossStreakCount++;
 
+
                 scoreBox.classList.add(
                     'glow-bust'
                 );
 
+
                 status.className =
                     'status-box neon-glow-bust';
+
 
                 currentGameStatus =
                     `bust_${bet}`;
 
+
                 status.innerHTML =
-                    `BUST (-$${bet.toFixed(2)})`;
+                    `BUST (-${bet}$)`;
+
 
                 playSoundEffect(
                     'bust'
                 );
+
 
                 if (
                     lossStreakCount >= 2
@@ -2641,11 +3583,13 @@ function playRound() {
                 currentGameStatus =
                     'closed';
 
+
                 status.innerHTML +=
                     `<br>
                     <span style="color:var(--neon-red);">
                         TABLE CLOSED
                     </span>`;
+
 
                 setRoundLock(true);
 
@@ -2674,6 +3618,20 @@ updateMatrix();
 resetCards();
 
 setRoundLock(false);
+
+
+/* =========================================================
+   PREVENT CONTEXT MENU
+========================================================= */
+
+document.addEventListener(
+    'contextmenu',
+    event => {
+
+        event.preventDefault();
+
+    }
+);
 
 </script>
 
