@@ -207,109 +207,6 @@ body {
 
 
 /* =========================
-   SETTINGS
-========================= */
-
-.settings-trigger {
-    background: none;
-    border: none;
-    padding: 0;
-
-    cursor: pointer;
-
-    box-shadow: none !important;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    transition: transform 0.4s ease;
-}
-
-.settings-trigger:hover {
-    transform: rotate(45deg) scale(1.1);
-    background: none;
-}
-
-.settings-trigger svg {
-    width: 22px;
-    height: 22px;
-    fill: var(--gold);
-}
-
-.settings-panel {
-    position: absolute;
-
-    top: -100%;
-    left: 25px;
-    right: 25px;
-
-    background: rgba(4,12,7,0.94);
-
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-
-    border: 2px solid var(--gold);
-    border-top: none;
-
-    border-radius: 0 0 20px 20px;
-
-    padding: 20px;
-
-    box-shadow: 0 20px 40px rgba(0,0,0,0.8);
-
-    z-index: 20;
-
-    transition:
-        top 0.4s cubic-bezier(0.175,0.885,0.32,1.1);
-
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-}
-
-.settings-panel.open {
-    top: 0;
-}
-
-.settings-row {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-
-    font-size: 0.9rem;
-    letter-spacing: 1.5px;
-}
-
-.settings-btn {
-    background: rgba(255,255,255,0.05);
-
-    border: 1px solid var(--gold);
-
-    color: #ffffff;
-
-    padding: 8px 16px;
-
-    font-size: 0.85rem;
-
-    border-radius: 8px;
-
-    letter-spacing: 1px;
-
-    min-width: 110px;
-}
-
-.settings-btn:hover {
-    background: var(--gold);
-    color: #000;
-
-    transform: none;
-
-    box-shadow: none;
-}
-
-
-/* =========================
    MODE SELECTOR
 ========================= */
 
@@ -988,19 +885,6 @@ button:disabled {
 
 
 /* =========================
-   RTL
-========================= */
-
-.rtl-layout {
-    direction: rtl;
-}
-
-.rtl-layout .hud-left {
-    flex-direction: row-reverse;
-}
-
-
-/* =========================
    ANIMATIONS
 ========================= */
 
@@ -1098,65 +982,12 @@ button:disabled {
     <div class="table-gold-layer"></div>
     <div class="inner-accent-rim"></div>
 
-    <!-- SETTINGS -->
-
-    <div class="settings-panel" id="settings-drawer">
-
-        <div class="settings-row">
-
-            <span id="label-sound">
-                Audio System
-            </span>
-
-            <button
-                class="settings-btn"
-                id="mute-toggle-btn"
-                onclick="toggleMute()">
-
-                MUTE
-
-            </button>
-
-        </div>
-
-        <div class="settings-row">
-
-            <span id="label-lang">
-                Language
-            </span>
-
-            <button
-                class="settings-btn"
-                id="lang-toggle-btn"
-                onclick="toggleLanguage()">
-
-                ×¢××¨××ª
-
-            </button>
-
-        </div>
-
-    </div>
-
 
     <!-- HUD -->
 
     <div class="hud">
 
         <div class="hud-left">
-
-            <button
-                class="settings-trigger"
-                onclick="toggleSettingsPanel()"
-                id="gear-btn">
-
-                <svg viewBox="0 0 24 24">
-
-                    <path d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.04-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.09.63-.09.94s.02.64.07.94l-2.03 1.58c-.18.14-.23.41-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z"/>
-
-                </svg>
-
-            </button>
 
             <div class="balance-display">
 
@@ -1165,8 +996,8 @@ button:disabled {
                 </span>:
 
                 <span id="balance">
-                    100
-                </span>âª
+                    100.00
+                </span>$
 
             </div>
 
@@ -1447,10 +1278,6 @@ const minBet = 2;
 
 let audioCtx = null;
 
-let isMuted = false;
-
-let currentLang = 'en';
-
 let lossStreakCount = 0;
 
 let currentGameStatus = 'idle';
@@ -1520,94 +1347,6 @@ const modeMultipliers = {
         19: 14.5,
         20: 16,
         21: 40
-
-    }
-
-};
-
-
-/* =========================================================
-   TRANSLATIONS
-========================================================= */
-
-const translations = {
-
-    en: {
-
-        balance: "BALANCE",
-
-        start:
-            "PLACE BET TO START",
-
-        dealing:
-            "DEALING...",
-
-        winner:
-            "WINNER",
-
-        bust:
-            "BUST",
-
-        push:
-            "PUSH",
-
-        closed:
-            "TABLE CLOSED",
-
-        dealBtn:
-            "DEAL HAND",
-
-        audioLabel:
-            "Audio System",
-
-        langLabel:
-            "Language",
-
-        muteBtnActive:
-            "UNMUTE",
-
-        muteBtnMuted:
-            "MUTE"
-
-    },
-
-    he: {
-
-        balance:
-            "××ª×¨×",
-
-        start:
-            "×©×× ×××××¨ ××× ×××ª×××",
-
-        dealing:
-            "××××§ ×§××¤××...",
-
-        winner:
-            "×××××",
-
-        bust:
-            "××¤×¡×",
-
-        push:
-            "×ª××§×",
-
-        closed:
-            "××©×××× ×¡×××¨",
-
-        dealBtn:
-            "×××§ ××",
-
-        audioLabel:
-            "××¢×¨××ª ×©××¢",
-
-        langLabel:
-            "×©×¤×",
-
-        muteBtnActive:
-            "××©×ª×§",
-
-        muteBtnMuted:
-            "××¤×¢× ×§××"
 
     }
 
@@ -1849,9 +1588,11 @@ function initAudio() {
 }
 
 
-function playClickSound() {
+/* =========================================================
+   CARD / RESULT SOUNDS
+========================================================= */
 
-    if (isMuted) return;
+function playSoundEffect(type) {
 
     initAudio();
 
@@ -1860,57 +1601,218 @@ function playClickSound() {
     const now =
         audioCtx.currentTime;
 
-    const osc =
-        audioCtx.createOscillator();
 
-    const gain =
-        audioCtx.createGain();
+    if (type === 'flip') {
 
-    osc.connect(gain);
-    gain.connect(audioCtx.destination);
+        const osc =
+            audioCtx.createOscillator();
 
-    osc.type =
-        'sine';
+        const gain =
+            audioCtx.createGain();
 
-    osc.frequency.setValueAtTime(
-        420,
-        now
-    );
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
 
-    osc.frequency.exponentialRampToValueAtTime(
-        760,
-        now + 0.07
-    );
+        osc.type = 'sine';
 
-    gain.gain.setValueAtTime(
-        0.0001,
-        now
-    );
+        osc.frequency.setValueAtTime(
+            280,
+            now
+        );
 
-    gain.gain.exponentialRampToValueAtTime(
-        0.045,
-        now + 0.01
-    );
+        osc.frequency.exponentialRampToValueAtTime(
+            140,
+            now + 0.08
+        );
 
-    gain.gain.exponentialRampToValueAtTime(
-        0.0001,
-        now + 0.11
-    );
+        gain.gain.setValueAtTime(
+            0.05,
+            now
+        );
 
-    osc.start(now);
+        gain.gain.linearRampToValueAtTime(
+            0,
+            now + 0.08
+        );
 
-    osc.stop(
-        now + 0.12
-    );
+        osc.start(now);
+
+        osc.stop(
+            now + 0.08
+        );
+
+    }
+
+
+    else if (type === 'win') {
+
+        [
+            523.25,
+            659.25,
+            783.99,
+            1046.50
+
+        ].forEach(
+            (f,i) => {
+
+                const osc =
+                    audioCtx.createOscillator();
+
+                const gain =
+                    audioCtx.createGain();
+
+                osc.connect(gain);
+                gain.connect(audioCtx.destination);
+
+                osc.type =
+                    'sine';
+
+                const start =
+                    now +
+                    i * 0.06;
+
+                osc.frequency.setValueAtTime(
+                    f,
+                    start
+                );
+
+                gain.gain.setValueAtTime(
+                    0,
+                    start
+                );
+
+                gain.gain.linearRampToValueAtTime(
+                    0.03,
+                    start + 0.02
+                );
+
+                gain.gain.exponentialRampToValueAtTime(
+                    0.001,
+                    start + 0.45
+                );
+
+                osc.start(start);
+
+                osc.stop(
+                    start + 0.45
+                );
+
+            }
+        );
+
+    }
+
+
+    else if (type === 'gold') {
+
+        [
+            523.25,
+            659.25,
+            783.99,
+            1046.50,
+            1318.51
+
+        ].forEach(
+            (f,i) => {
+
+                const osc =
+                    audioCtx.createOscillator();
+
+                const gain =
+                    audioCtx.createGain();
+
+                osc.connect(gain);
+                gain.connect(audioCtx.destination);
+
+                osc.type =
+                    'sine';
+
+                const start =
+                    now +
+                    i * 0.05;
+
+                osc.frequency.setValueAtTime(
+                    f,
+                    start
+                );
+
+                gain.gain.setValueAtTime(
+                    0,
+                    start
+                );
+
+                gain.gain.linearRampToValueAtTime(
+                    0.04,
+                    start + 0.02
+                );
+
+                gain.gain.exponentialRampToValueAtTime(
+                    0.001,
+                    start + 0.6
+                );
+
+                osc.start(start);
+
+                osc.stop(
+                    start + 0.6
+                );
+
+            }
+        );
+
+    }
+
+
+    else if (type === 'bust') {
+
+        const osc =
+            audioCtx.createOscillator();
+
+        const gain =
+            audioCtx.createGain();
+
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
+
+        osc.type =
+            'triangle';
+
+        osc.frequency.setValueAtTime(
+            110,
+            now
+        );
+
+        osc.frequency.linearRampToValueAtTime(
+            55,
+            now + 0.35
+        );
+
+        gain.gain.setValueAtTime(
+            0.08,
+            now
+        );
+
+        gain.gain.linearRampToValueAtTime(
+            0,
+            now + 0.35
+        );
+
+        osc.start(now);
+
+        osc.stop(
+            now + 0.35
+        );
+
+    }
 
 }
 
 
-/* SPEED SOUND */
+/* =========================================================
+   SPEED MODE
+========================================================= */
 
 function playSpeedSound(active) {
-
-    if (isMuted) return;
 
     initAudio();
 
@@ -1975,413 +1877,8 @@ function playSpeedSound(active) {
 }
 
 
-/* CARD / RESULT SOUNDS */
-
-function playSoundEffect(type) {
-
-    if (isMuted) return;
-
-    initAudio();
-
-    if (!audioCtx) return;
-
-    const now =
-        audioCtx.currentTime;
-
-    if (type === 'flip') {
-
-        const osc =
-            audioCtx.createOscillator();
-
-        const gain =
-            audioCtx.createGain();
-
-        osc.connect(gain);
-        gain.connect(audioCtx.destination);
-
-        osc.frequency.setValueAtTime(
-            280,
-            now
-        );
-
-        osc.frequency.exponentialRampToValueAtTime(
-            140,
-            now + 0.08
-        );
-
-        gain.gain.setValueAtTime(
-            0.05,
-            now
-        );
-
-        gain.gain.linearRampToValueAtTime(
-            0,
-            now + 0.08
-        );
-
-        osc.start(now);
-
-        osc.stop(
-            now + 0.08
-        );
-
-    }
-
-    else if (type === 'win') {
-
-        [
-            523.25,
-            659.25,
-            783.99,
-            1046.50
-
-        ].forEach(
-            (f,i) => {
-
-                const osc =
-                    audioCtx.createOscillator();
-
-                const gain =
-                    audioCtx.createGain();
-
-                osc.connect(gain);
-                gain.connect(audioCtx.destination);
-
-                osc.type =
-                    'sine';
-
-                const start =
-                    now +
-                    i * 0.06;
-
-                osc.frequency.setValueAtTime(
-                    f,
-                    start
-                );
-
-                gain.gain.setValueAtTime(
-                    0,
-                    now
-                );
-
-                gain.gain.linearRampToValueAtTime(
-                    0.03,
-                    start + 0.02
-                );
-
-                gain.gain.exponentialRampToValueAtTime(
-                    0.001,
-                    start + 0.45
-                );
-
-                osc.start(start);
-
-                osc.stop(
-                    start + 0.45
-                );
-
-            }
-        );
-
-    }
-
-    else if (type === 'gold') {
-
-        [
-            523.25,
-            659.25,
-            783.99,
-            1046.50,
-            1318.51
-
-        ].forEach(
-            (f,i) => {
-
-                const osc =
-                    audioCtx.createOscillator();
-
-                const gain =
-                    audioCtx.createGain();
-
-                osc.connect(gain);
-                gain.connect(audioCtx.destination);
-
-                osc.type =
-                    'sine';
-
-                const start =
-                    now +
-                    i * 0.05;
-
-                osc.frequency.setValueAtTime(
-                    f,
-                    start
-                );
-
-                gain.gain.setValueAtTime(
-                    0,
-                    now
-                );
-
-                gain.gain.linearRampToValueAtTime(
-                    0.04,
-                    start + 0.02
-                );
-
-                gain.gain.exponentialRampToValueAtTime(
-                    0.001,
-                    start + 0.6
-                );
-
-                osc.start(start);
-
-                osc.stop(
-                    start + 0.6
-                );
-
-            }
-        );
-
-    }
-
-    else if (type === 'bust') {
-
-        const osc =
-            audioCtx.createOscillator();
-
-        const gain =
-            audioCtx.createGain();
-
-        osc.connect(gain);
-        gain.connect(audioCtx.destination);
-
-        osc.type =
-            'triangle';
-
-        osc.frequency.setValueAtTime(
-            110,
-            now
-        );
-
-        osc.frequency.linearRampToValueAtTime(
-            55,
-            now + 0.35
-        );
-
-        gain.gain.setValueAtTime(
-            0.08,
-            now
-        );
-
-        gain.gain.linearRampToValueAtTime(
-            0,
-            now + 0.35
-        );
-
-        osc.start(now);
-
-        osc.stop(
-            now + 0.35
-        );
-
-    }
-
-}
-
-
 /* =========================================================
-   SETTINGS
-========================================================= */
-
-function toggleSettingsPanel() {
-
-    document
-        .getElementById('settings-drawer')
-        .classList.toggle('open');
-
-}
-
-
-function toggleMute() {
-
-    isMuted =
-        !isMuted;
-
-    const btn =
-        document.getElementById(
-            'mute-toggle-btn'
-        );
-
-    btn.innerText =
-        isMuted
-            ? translations[currentLang].muteBtnMuted
-            : translations[currentLang].muteBtnActive;
-
-}
-
-
-function toggleLanguage() {
-
-    currentLang =
-        currentLang === 'en'
-            ? 'he'
-            : 'en';
-
-    const mainTable =
-        document.getElementById(
-            'blackjack-table'
-        );
-
-    if (currentLang === 'he') {
-
-        mainTable.classList.add(
-            'rtl-layout'
-        );
-
-        document
-            .getElementById(
-                'lang-toggle-btn'
-            )
-            .innerText =
-                "English";
-
-    }
-
-    else {
-
-        mainTable.classList.remove(
-            'rtl-layout'
-        );
-
-        document
-            .getElementById(
-                'lang-toggle-btn'
-            )
-            .innerText =
-                "×¢××¨××ª";
-
-    }
-
-    document.getElementById(
-        'txt-balance'
-    ).innerText =
-        translations[currentLang].balance;
-
-    document.getElementById(
-        'deal-btn'
-    ).innerText =
-        translations[currentLang].dealBtn;
-
-    document.getElementById(
-        'label-sound'
-    ).innerText =
-        translations[currentLang].audioLabel;
-
-    document.getElementById(
-        'label-lang'
-    ).innerText =
-        translations[currentLang].langLabel;
-
-    document.getElementById(
-        'mute-toggle-btn'
-    ).innerText =
-        isMuted
-            ? translations[currentLang].muteBtnMuted
-            : translations[currentLang].muteBtnActive;
-
-    updateStatusLanguage();
-
-}
-
-
-/* =========================================================
-   STATUS TRANSLATION
-========================================================= */
-
-function updateStatusLanguage() {
-
-    const status =
-        document.getElementById(
-            'status-message'
-        );
-
-    if (currentGameStatus === 'idle') {
-
-        status.innerText =
-            translations[currentLang].start;
-
-    }
-
-    else if (
-        currentGameStatus === 'dealing'
-    ) {
-
-        status.innerText =
-            translations[currentLang].dealing;
-
-    }
-
-    else if (
-        currentGameStatus === 'closed'
-    ) {
-
-        status.innerHTML =
-            translations[currentLang].closed;
-
-    }
-
-    else if (
-        currentGameStatus.startsWith('win_')
-    ) {
-
-        const amt =
-            currentGameStatus.split('_')[1];
-
-        status.innerHTML =
-            `${translations[currentLang].winner} (+${amt}âª)`;
-
-    }
-
-    else if (
-        currentGameStatus.startsWith('gold_')
-    ) {
-
-        const amt =
-            currentGameStatus.split('_')[1];
-
-        status.innerHTML =
-            currentLang === 'en'
-                ? `ð CAPTAIN 21 (+${amt}âª) ð`
-                : `ð ×§×¤×× 21 (+${amt}âª) ð`;
-
-    }
-
-    else if (
-        currentGameStatus.startsWith('bust_')
-    ) {
-
-        const amt =
-            currentGameStatus.split('_')[1];
-
-        status.innerHTML =
-            `${translations[currentLang].bust} (-${amt}âª)`;
-
-    }
-
-    else if (
-        currentGameStatus === 'push'
-    ) {
-
-        status.innerText =
-            translations[currentLang].push;
-
-    }
-
-}
-
-
-/* =========================================================
-   SPEED MODE
+   SPEED TOGGLE
 ========================================================= */
 
 function toggleSpeed() {
@@ -2420,13 +1917,9 @@ function setMode(mode) {
 
     if (mode === currentMode) {
 
-        playClickSound();
-
         return;
 
     }
-
-    playClickSound();
 
     currentMode =
         mode;
@@ -2489,7 +1982,7 @@ function setMode(mode) {
         'status-box';
 
     status.innerText =
-        translations[currentLang].start;
+        'PLACE BET TO START';
 
 }
 
@@ -2686,11 +2179,6 @@ function playRound() {
 
     }
 
-    const dealBtn =
-        document.getElementById(
-            'deal-btn'
-        );
-
     const betInput =
         document.getElementById(
             'bet-input'
@@ -2721,13 +2209,10 @@ function playRound() {
             betInput.value
         );
 
-    document
-        .getElementById(
-            'settings-drawer'
-        )
-        .classList.remove(
-            'open'
-        );
+
+    /* =====================================================
+       BET VALIDATION
+    ===================================================== */
 
     if (
         isNaN(bet) ||
@@ -2735,7 +2220,7 @@ function playRound() {
     ) {
 
         alert(
-            `Min bet is ${minBet}âª!`
+            `Min bet is $${minBet}!`
         );
 
         return;
@@ -2753,6 +2238,11 @@ function playRound() {
         return;
 
     }
+
+
+    /* =====================================================
+       START ROUND
+    ===================================================== */
 
     setRoundLock(true);
 
@@ -2779,7 +2269,8 @@ function playRound() {
         'dealing';
 
     status.innerHTML =
-        translations[currentLang].dealing;
+        'DEALING...';
+
 
     document
         .querySelectorAll('.matrix-row')
@@ -2979,15 +2470,13 @@ function playRound() {
 
     /* =====================================================
        FINISH ROUND
-       
-       NO FINISH DELAY.
-       The result appears as soon as the
-       final card animation begins.
+
+       Result appears as soon as the final
+       card animation begins.
     ===================================================== */
 
     const finalDelay =
         timing.startDelay +
-
         ((currentMode - 1) *
             timing.cardDelay);
 
@@ -3051,9 +2540,7 @@ function playRound() {
                     `gold_${winnings.toFixed(2)}`;
 
                 status.innerHTML =
-                    currentLang === 'en'
-                        ? `ð CAPTAIN 21 (+${winnings.toFixed(2)}âª) ð`
-                        : `ð ×§×¤×× 21 (+${winnings.toFixed(2)}âª) ð`;
+                    `👑 CAPTAIN 21 (+$${winnings.toFixed(2)}) 👑`;
 
                 playSoundEffect(
                     'gold'
@@ -3096,7 +2583,7 @@ function playRound() {
                     `win_${winnings.toFixed(2)}`;
 
                 status.innerHTML =
-                    `${translations[currentLang].winner} (+${winnings.toFixed(2)}âª)`;
+                    `WINNER (+$${winnings.toFixed(2)})`;
 
                 playSoundEffect(
                     'win'
@@ -3124,7 +2611,7 @@ function playRound() {
                     `bust_${bet}`;
 
                 status.innerHTML =
-                    `${translations[currentLang].bust} (-${bet}âª)`;
+                    `BUST (-$${bet.toFixed(2)})`;
 
                 playSoundEffect(
                     'bust'
@@ -3157,7 +2644,7 @@ function playRound() {
                 status.innerHTML +=
                     `<br>
                     <span style="color:var(--neon-red);">
-                        ${translations[currentLang].closed}
+                        TABLE CLOSED
                     </span>`;
 
                 setRoundLock(true);
