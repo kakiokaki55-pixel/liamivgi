@@ -1474,6 +1474,710 @@ button:disabled {
 
 }
 
+/* =========================================================
+   CAPTAIN 21 UPGRADE PACK
+========================================================= */
+
+button,
+input {
+    font: inherit;
+}
+
+button:focus-visible,
+input:focus-visible {
+    outline: 2px solid var(--gold-bright);
+    outline-offset: 3px;
+}
+
+.addon-dock {
+    position: fixed;
+    z-index: 30;
+    top: 14px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px;
+    border: 1px solid rgba(212,175,55,0.28);
+    border-radius: 14px;
+    background: rgba(3,7,6,0.88);
+    box-shadow: 0 12px 30px rgba(0,0,0,0.45);
+    backdrop-filter: blur(14px);
+}
+
+.addon-dock button,
+.quick-bet button,
+.addon-close,
+.addon-secondary {
+    min-height: 32px;
+    padding: 7px 10px;
+    border: 1px solid rgba(212,175,55,0.34);
+    border-radius: 8px;
+    background: rgba(255,255,255,0.06);
+    color: #c7d0d8;
+    font-size: 0.66rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+    cursor: pointer;
+    box-shadow: none;
+}
+
+.addon-dock button:hover,
+.quick-bet button:hover,
+.addon-close:hover,
+.addon-secondary:hover {
+    color: var(--gold-bright);
+    border-color: var(--gold);
+    background: rgba(212,175,55,0.12);
+    transform: translateY(-1px);
+    box-shadow: none;
+}
+
+.addon-dock button.active {
+    color: #050806;
+    border-color: var(--gold-bright);
+    background: linear-gradient(180deg, #f3e5ab, #d4af37);
+}
+
+.addon-toast {
+    position: fixed;
+    z-index: 60;
+    left: 50%;
+    bottom: 22px;
+    min-width: 190px;
+    max-width: min(90vw, 390px);
+    padding: 12px 16px;
+    border: 1px solid var(--gold);
+    border-radius: 12px;
+    background: rgba(3,7,6,0.94);
+    color: var(--gold-bright);
+    text-align: center;
+    font-size: 0.74rem;
+    letter-spacing: 1px;
+    box-shadow: 0 12px 30px rgba(0,0,0,0.5);
+    transform: translate(-50%, 18px);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity .25s ease, transform .25s ease;
+}
+
+.addon-toast.show {
+    transform: translate(-50%, 0);
+    opacity: 1;
+}
+
+.addon-toast.error {
+    color: #ffd9de;
+    border-color: var(--neon-red);
+}
+
+.addon-modal[hidden] {
+    display: none;
+}
+
+.addon-modal {
+    position: fixed;
+    z-index: 50;
+    inset: 0;
+    display: grid;
+    place-items: center;
+    padding: 18px;
+    background: rgba(0,0,0,0.74);
+    backdrop-filter: blur(9px);
+}
+
+.addon-dialog {
+    width: min(430px, 100%);
+    max-height: min(720px, 92vh);
+    overflow: auto;
+    padding: 22px;
+    border: 1px solid var(--gold);
+    border-radius: 20px;
+    background:
+        radial-gradient(circle at 50% 0%, rgba(53,40,8,0.72), transparent 50%),
+        #070b09;
+    box-shadow: 0 30px 100px rgba(0,0,0,0.8), 0 0 35px rgba(212,175,55,0.16);
+    text-align: left;
+    animation: addon-dialog-in .24s cubic-bezier(.16,1,.3,1);
+}
+
+.addon-dialog-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 18px;
+}
+
+.addon-dialog h2 {
+    margin: 0;
+    color: var(--gold-bright);
+    font-family: 'Cinzel', serif;
+    font-size: 1.15rem;
+    letter-spacing: 2px;
+}
+
+.addon-close {
+    width: 32px;
+    min-width: 32px;
+    padding: 0;
+    color: #9aa7b2;
+    font-size: 1.1rem;
+}
+
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
+    margin-bottom: 18px;
+}
+
+.stat-card {
+    padding: 12px;
+    border: 1px solid rgba(212,175,55,0.18);
+    border-radius: 10px;
+    background: rgba(255,255,255,0.035);
+}
+
+.stat-card small {
+    display: block;
+    margin-bottom: 5px;
+    color: #778695;
+    font-size: .62rem;
+    letter-spacing: 1px;
+}
+
+.stat-card strong {
+    color: #fff;
+    font-size: 1.1rem;
+}
+
+.stat-card strong.positive {
+    color: var(--neon-green);
+}
+
+.stat-card strong.negative {
+    color: var(--neon-red);
+}
+
+.addon-section-title {
+    margin: 18px 0 8px;
+    color: #8f9ba4;
+    font-size: .68rem;
+    letter-spacing: 1.5px;
+}
+
+.quick-bet {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 7px;
+}
+
+.quick-bet button {
+    flex: 1 1 52px;
+}
+
+.quick-bet button.primary {
+    color: #090b08;
+    border-color: var(--gold-bright);
+    background: linear-gradient(180deg, #f3e5ab, #d4af37);
+}
+
+.history-list {
+    display: grid;
+    gap: 6px;
+    max-height: 172px;
+    margin: 0;
+    padding: 0;
+    overflow: auto;
+    list-style: none;
+}
+
+.history-list li {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    padding: 9px 10px;
+    border-radius: 8px;
+    background: rgba(255,255,255,0.04);
+    color: #aeb8c1;
+    font-size: .68rem;
+    letter-spacing: .7px;
+}
+
+.history-list li strong {
+    color: var(--gold-bright);
+}
+
+.history-list li .win {
+    color: var(--neon-green);
+}
+
+.history-list li .loss {
+    color: var(--neon-red);
+}
+
+.addon-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 18px;
+}
+
+.addon-actions button {
+    flex: 1;
+}
+
+.addon-secondary.danger {
+    color: #ffb5be;
+    border-color: rgba(255,59,87,0.45);
+}
+
+.addon-secondary.danger:hover {
+    color: #fff;
+    border-color: var(--neon-red);
+    background: rgba(255,59,87,0.14);
+}
+
+.help-list {
+    display: grid;
+    gap: 9px;
+    margin: 0;
+    padding-left: 18px;
+    color: #aeb8c1;
+    font-size: .74rem;
+    line-height: 1.45;
+    letter-spacing: .5px;
+}
+
+.help-list kbd {
+    display: inline-block;
+    min-width: 22px;
+    margin-right: 4px;
+    padding: 2px 5px;
+    border: 1px solid rgba(212,175,55,0.35);
+    border-radius: 4px;
+    color: var(--gold-bright);
+    text-align: center;
+    font-size: .65rem;
+}
+
+.achievement-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 7px;
+}
+
+.achievement {
+    padding: 7px 9px;
+    border: 1px solid rgba(114,132,154,0.28);
+    border-radius: 7px;
+    color: #617080;
+    font-size: .61rem;
+    letter-spacing: .7px;
+}
+
+.achievement.unlocked {
+    border-color: var(--gold);
+    color: var(--gold-bright);
+    background: rgba(212,175,55,0.1);
+}
+
+.addon-confetti {
+    position: fixed;
+    z-index: 55;
+    top: -15px;
+    width: 7px;
+    height: 12px;
+    pointer-events: none;
+    animation: addon-confetti-fall 1.6s ease-in forwards;
+}
+
+.table.addon-contrast {
+    filter: contrast(1.2) saturate(1.15);
+}
+
+.table.addon-contrast .matrix-row,
+.table.addon-contrast .stat-card {
+    border-color: rgba(255,255,255,0.48);
+}
+
+.table.addon-theme-sapphire {
+    --gold: #53c7ff;
+    --gold-bright: #d8f6ff;
+}
+
+.table.addon-theme-sapphire .table-gold-layer {
+    background: radial-gradient(circle at 50% 20%, #073248 0%, #021016 80%, #000 100%);
+}
+
+.table.addon-theme-crimson {
+    --gold: #ff7180;
+    --gold-bright: #ffd9de;
+}
+
+.table.addon-theme-crimson .table-gold-layer {
+    background: radial-gradient(circle at 50% 20%, #430b16 0%, #150307 80%, #000 100%);
+}
+
+body.addon-reduced-motion *,
+body.addon-reduced-motion *::before,
+body.addon-reduced-motion *::after {
+    animation-duration: .001ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: .001ms !important;
+}
+
+@keyframes addon-dialog-in {
+    from { opacity: 0; transform: translateY(12px) scale(.97); }
+    to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+@keyframes addon-confetti-fall {
+    0% { opacity: 1; transform: translate3d(0, 0, 0) rotate(0); }
+    100% { opacity: 0; transform: translate3d(var(--drift), 92vh, 0) rotate(720deg); }
+}
+
+@media (max-width: 430px) {
+    .addon-dock {
+        top: 6px;
+        gap: 3px;
+        padding: 4px;
+    }
+
+    .addon-dock button {
+        min-height: 28px;
+        padding: 5px 7px;
+        font-size: .58rem;
+    }
+
+    .addon-dialog {
+        padding: 17px;
+    }
+}
+
+/* =========================================================
+   CINEMATIC PASS
+========================================================= */
+
+.table {
+    isolation: isolate;
+}
+
+.table::after {
+    mix-blend-mode: screen;
+}
+
+.card-slot {
+    will-change: transform, filter;
+}
+
+.card-slot.cinematic-dealt {
+    animation: cinematic-card-land .72s cubic-bezier(.16,1,.3,1) both;
+}
+
+.card-slot.cinematic-dealt .card-front {
+    overflow: hidden;
+}
+
+.card-slot.cinematic-dealt .card-front::before {
+    content: '';
+    position: absolute;
+    z-index: 5;
+    inset: -45% -80%;
+    background: linear-gradient(105deg, transparent 42%, rgba(255,255,255,.75) 49%, transparent 56%);
+    transform: translateX(-65%) rotate(8deg);
+    pointer-events: none;
+    animation: card-sheen 1s .22s ease-out both;
+}
+
+.card-slot.cinematic-dealt .card-front::after {
+    content: '';
+    position: absolute;
+    z-index: 1;
+    inset: 0;
+    border-radius: inherit;
+    opacity: .16;
+    background-image:
+        radial-gradient(rgba(40,40,40,.45) .7px, transparent .7px),
+        linear-gradient(130deg, transparent, rgba(255,255,255,.55), transparent);
+    background-size: 4px 4px, 100% 100%;
+    mix-blend-mode: multiply;
+    pointer-events: none;
+}
+
+.card-front > * {
+    position: relative;
+    z-index: 3;
+}
+
+.card-front .art-wrapper {
+    transition: transform .45s cubic-bezier(.16,1,.3,1), filter .45s ease;
+}
+
+.card-slot:hover .card-front .art-wrapper {
+    transform: scale(1.08) rotate(-3deg);
+    filter: drop-shadow(0 4px 4px rgba(212,175,55,.28));
+}
+
+.court-card .art-wrapper {
+    display: none;
+}
+
+.court-portrait {
+    position: absolute;
+    z-index: 2;
+    inset: 29px 7px 28px;
+    display: grid;
+    place-items: center;
+    overflow: hidden;
+    border: 1px solid rgba(109,79,12,.75);
+    border-radius: 7px;
+    background:
+        linear-gradient(135deg, rgba(255,255,255,.75), transparent 32%),
+        repeating-linear-gradient(45deg, rgba(212,175,55,.18) 0 1px, transparent 1px 4px),
+        #f4ead0;
+    box-shadow: inset 0 0 0 3px rgba(255,255,255,.35), inset 0 0 18px rgba(94,57,8,.25);
+}
+
+.court-portrait svg {
+    width: 100%;
+    height: 100%;
+    filter: drop-shadow(0 3px 2px rgba(0,0,0,.28));
+}
+
+.court-portrait::after {
+    content: attr(data-rank);
+    position: absolute;
+    right: 4px;
+    bottom: 1px;
+    color: rgba(75,41,4,.72);
+    font-family: 'Cinzel', serif;
+    font-size: .55rem;
+    font-weight: 900;
+}
+
+.card-front.red .court-portrait {
+    background:
+        linear-gradient(135deg, rgba(255,255,255,.78), transparent 32%),
+        repeating-linear-gradient(45deg, rgba(186,18,37,.12) 0 1px, transparent 1px 4px),
+        #f5e4d9;
+}
+
+.card-front.red .court-portrait::after {
+    color: rgba(128,9,26,.72);
+}
+
+.card-slot.flipped.cinematic-card-cursor {
+    transform: translateY(-7px) rotateX(var(--tilt-y, 0deg)) rotateY(calc(180deg + var(--tilt-x, 0deg))) scale(1.04) !important;
+    z-index: 8;
+}
+
+#deal-btn:not(:disabled) {
+    animation: deal-button-breathe 2.3s ease-in-out infinite;
+}
+
+#deal-btn:not(:disabled):hover {
+    animation: none;
+}
+
+#score-box.cinematic-score {
+    animation: score-impact .6s cubic-bezier(.16,1,.3,1);
+}
+
+.addon-dock button,
+.quick-bet button,
+button {
+    position: relative;
+    overflow: hidden;
+}
+
+.addon-dock button::after,
+.quick-bet button::after,
+button::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(115deg, transparent 35%, rgba(255,255,255,.36) 50%, transparent 65%);
+    transform: translateX(-130%);
+    pointer-events: none;
+}
+
+.addon-dock button:hover::after,
+.quick-bet button:hover::after,
+button:hover::after {
+    animation: button-glint .65s ease-out;
+}
+
+.daily-challenge {
+    position: fixed;
+    z-index: 25;
+    top: 70px;
+    left: 50%;
+    min-width: 205px;
+    padding: 8px 12px;
+    border: 1px solid rgba(212,175,55,.3);
+    border-radius: 10px;
+    background: rgba(3,7,6,.78);
+    color: #aeb8c1;
+    text-align: center;
+    font-size: .58rem;
+    letter-spacing: 1px;
+    box-shadow: 0 8px 22px rgba(0,0,0,.28);
+    transform: translateX(-50%);
+    backdrop-filter: blur(10px);
+}
+
+.daily-challenge strong {
+    color: var(--gold-bright);
+}
+
+.daily-challenge.complete {
+    border-color: var(--neon-green);
+    color: var(--neon-green);
+}
+
+body.addon-light {
+    background:
+        radial-gradient(circle at 50% -10%, #ffffff 0, #dbe5e1 48%, #b9c7c1 100%);
+    color: #17231f;
+}
+
+body.addon-light .table {
+    background:
+        radial-gradient(circle at 50% 20%, #e8f3ed 0%, #cbded4 78%, #b4c8bd 100%);
+    border-color: #9b751d;
+    color: #17231f;
+    box-shadow: 0 35px 80px rgba(38,53,45,.3), inset 0 0 70px rgba(255,255,255,.42);
+}
+
+body.addon-light .hud {
+    border-color: rgba(120,86,12,.24);
+}
+
+body.addon-light .balance-display,
+body.addon-light .status-box,
+body.addon-light .matrix-row {
+    color: #253d33;
+}
+
+body.addon-light .matrix-container {
+    background: rgba(255,255,255,.38);
+    border-color: rgba(120,86,12,.2);
+}
+
+body.addon-light .matrix-row {
+    background: rgba(255,255,255,.28);
+}
+
+body.addon-light input[type="number"] {
+    background: #fffdf5;
+    color: #694e09;
+}
+
+body.addon-light .addon-dock,
+body.addon-light .daily-challenge {
+    background: rgba(246,251,248,.9);
+    color: #40584c;
+    box-shadow: 0 12px 30px rgba(38,53,45,.2);
+}
+
+body.addon-light .addon-modal {
+    background: rgba(43,58,51,.34);
+}
+
+body.addon-light .addon-dialog {
+    background:
+        radial-gradient(circle at 50% 0%, rgba(255,244,192,.7), transparent 55%),
+        #f4faf6;
+    color: #1d3027;
+    box-shadow: 0 30px 80px rgba(38,53,45,.35);
+}
+
+body.addon-light .addon-dialog h2,
+body.addon-light .stat-card strong,
+body.addon-light .help-list,
+body.addon-light .history-list li {
+    color: #22382d;
+}
+
+body.addon-light .stat-card,
+body.addon-light .history-list li {
+    background: rgba(255,255,255,.62);
+    border-color: rgba(120,86,12,.2);
+}
+
+body.addon-light .addon-dock button,
+body.addon-light .quick-bet button,
+body.addon-light .addon-secondary,
+body.addon-light .addon-close {
+    background: rgba(255,255,255,.72);
+    color: #41594d;
+}
+
+@keyframes cinematic-card-land {
+    0% { opacity: 0; transform: translateY(-36px) rotateY(180deg) rotateZ(-8deg) scale(.86); filter: brightness(1.9) blur(2px); }
+    48% { opacity: 1; transform: translateY(5px) rotateY(180deg) rotateZ(2deg) scale(1.04); filter: brightness(1.2); }
+    100% { opacity: 1; transform: translateY(0) rotateY(180deg) rotateZ(0) scale(1); filter: brightness(1); }
+}
+
+@keyframes card-sheen {
+    from { transform: translateX(-65%) rotate(8deg); }
+    to { transform: translateX(65%) rotate(8deg); }
+}
+
+@keyframes deal-button-breathe {
+    0%, 100% { box-shadow: 0 10px 25px rgba(0,0,0,.4), 0 0 0 rgba(212,175,55,0); }
+    50% { box-shadow: 0 10px 25px rgba(0,0,0,.4), 0 0 22px rgba(212,175,55,.3); }
+}
+
+@keyframes score-impact {
+    0% { transform: scale(.82) rotate(-5deg); filter: brightness(1.7); }
+    70% { transform: scale(1.18) rotate(2deg); filter: brightness(1.3); }
+    100% { transform: scale(1) rotate(0); filter: brightness(1); }
+}
+
+@keyframes button-glint {
+    from { transform: translateX(-130%); }
+    to { transform: translateX(130%); }
+}
+
+@media (max-width: 430px) {
+    .daily-challenge {
+        top: 48px;
+        min-width: 185px;
+        font-size: .52rem;
+    }
+
+    .court-portrait {
+        inset: 26px 5px 24px;
+    }
+}
+
+
+/* =========================================================
+   iOS TAP SAFETY
+   Keep normal taps/clicks reliable without a global touchend
+   preventDefault(), which can interfere with Safari.
+========================================================= */
+html,
+body {
+    touch-action: manipulation;
+}
+
+button,
+input,
+select,
+textarea,
+a,
+.card-slot {
+    -webkit-tap-highlight-color: transparent;
+    touch-action: manipulation;
+}
+
 </style>
 
 </head>
@@ -1921,6 +2625,71 @@ button:disabled {
 </div>
 
 
+<!-- =========================================================
+     UPGRADE PACK CONTROLS
+========================================================== -->
+
+<div
+    class="addon-dock"
+    aria-label="Game utilities"
+>
+    <button
+        id="addon-stats-btn"
+        type="button"
+        title="Open session statistics"
+    >STATS</button>
+    <button
+        id="addon-bets-btn"
+        type="button"
+        title="Open quick betting tools"
+    >BETS</button>
+    <button
+        id="addon-display-btn"
+        type="button"
+        title="Cycle table theme"
+    >THEME</button>
+    <button
+        id="addon-sound-btn"
+        type="button"
+        title="Toggle sound"
+    >SOUND</button>
+    <button
+        id="addon-help-btn"
+        type="button"
+        title="Show keyboard shortcuts and help"
+    >HELP</button>
+</div>
+
+<div
+    class="addon-toast"
+    id="addon-toast"
+    role="status"
+    aria-live="polite"
+></div>
+
+<div
+    class="addon-modal"
+    id="addon-modal"
+    hidden
+    aria-modal="true"
+    role="dialog"
+    aria-labelledby="addon-modal-title"
+>
+    <div class="addon-dialog">
+        <div class="addon-dialog-head">
+            <h2 id="addon-modal-title">SESSION COMMAND</h2>
+            <button
+                class="addon-close"
+                id="addon-close"
+                type="button"
+                aria-label="Close dialog"
+            >×</button>
+        </div>
+        <div id="addon-modal-content"></div>
+    </div>
+</div>
+
+
 <script>
 
 /* =========================================================
@@ -1935,29 +2704,7 @@ button:disabled {
 let lastTouchEnd = 0;
 
 
-document.addEventListener(
-    'touchend',
-    function(event) {
 
-        const now =
-            Date.now();
-
-        if (
-            now - lastTouchEnd <= 300
-        ) {
-
-            event.preventDefault();
-
-        }
-
-        lastTouchEnd =
-            now;
-
-    },
-    {
-        passive: false
-    }
-);
 
 
 /*
@@ -3633,6 +4380,787 @@ document.addEventListener(
     }
 );
 
+</script>
+
+<script>
+/* =========================================================
+   CAPTAIN 21 UPGRADE PACK
+   Twenty-five-plus optional features layered onto the
+   original single-file game without changing its core rules.
+========================================================= */
+
+(() => {
+    'use strict';
+
+    const STORAGE_KEY = 'captain21-vegas-upgrade-v1';
+    const table = document.getElementById('blackjack-table');
+    const balanceEl = document.getElementById('balance');
+    const betInput = document.getElementById('bet-input');
+    const statusEl = document.getElementById('status-message');
+    const toastEl = document.getElementById('addon-toast');
+    const modalEl = document.getElementById('addon-modal');
+    const modalTitle = document.getElementById('addon-modal-title');
+    const modalContent = document.getElementById('addon-modal-content');
+    const soundBtn = document.getElementById('addon-sound-btn');
+
+    const defaultState = {
+        balance: 100,
+        rounds: 0,
+        wins: 0,
+        losses: 0,
+        captain21s: 0,
+        profit: 0,
+        currentStreak: 0,
+        bestStreak: 0,
+        bestHand: 0,
+        history: [],
+        sound: true,
+        reducedMotion: false,
+        contrast: false,
+        theme: 0,
+        lastMode: 4
+    };
+
+    let addonState = loadState();
+    let toastTimer = null;
+    let modalMode = 'stats';
+    let lastFocused = null;
+
+    function loadState() {
+        try {
+            const saved = JSON.parse(localStorage.getItem(STORAGE_KEY) || 'null');
+            return { ...defaultState, ...(saved || {}) };
+        } catch {
+            return { ...defaultState };
+        }
+    }
+
+    function saveState() {
+        try {
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(addonState));
+        } catch {
+            /* Storage can be unavailable in private browsing. */
+        }
+    }
+
+    function money(value) {
+        return Number(value || 0).toFixed(2);
+    }
+
+    function escapeHtml(value) {
+        return String(value)
+            .replaceAll('&', '&amp;')
+            .replaceAll('<', '&lt;')
+            .replaceAll('>', '&gt;')
+            .replaceAll('"', '&quot;')
+            .replaceAll("'", '&#039;');
+    }
+
+    function notify(message, kind = '') {
+        if (!toastEl) return;
+        toastEl.textContent = message;
+        toastEl.className = `addon-toast show ${kind}`;
+        clearTimeout(toastTimer);
+        toastTimer = setTimeout(() => {
+            toastEl.className = 'addon-toast';
+        }, 2400);
+    }
+
+    function currentBalance() {
+        return Number.parseFloat(balanceEl?.textContent || addonState.balance || 0) || 0;
+    }
+
+    function syncBalance(value) {
+        addonState.balance = Math.max(0, Number(value) || 0);
+        if (balanceEl) balanceEl.textContent = money(addonState.balance);
+        saveState();
+    }
+
+    function applyPreferences() {
+        document.body.classList.toggle('addon-reduced-motion', addonState.reducedMotion);
+        table.classList.toggle('addon-contrast', addonState.contrast);
+        table.classList.remove('addon-theme-sapphire', 'addon-theme-crimson');
+        if (addonState.theme === 1) table.classList.add('addon-theme-sapphire');
+        if (addonState.theme === 2) table.classList.add('addon-theme-crimson');
+        soundBtn.classList.toggle('active', addonState.sound);
+        soundBtn.textContent = addonState.sound ? 'SOUND' : 'MUTED';
+        soundBtn.setAttribute('aria-pressed', String(addonState.sound));
+        syncBalance(addonState.balance);
+    }
+
+    function achievements() {
+        return [
+            ['FIRST DEAL', addonState.rounds >= 1],
+            ['HOT HAND', addonState.bestStreak >= 3],
+            ['CAPTAIN', addonState.captain21s >= 1],
+            ['HIGH ROLLER', addonState.balance >= 200],
+            ['CARD SHARK', addonState.rounds >= 10]
+        ];
+    }
+
+    function renderStats() {
+        const winRate = addonState.rounds
+            ? Math.round((addonState.wins / addonState.rounds) * 100)
+            : 0;
+        const profitClass = addonState.profit > 0
+            ? 'positive'
+            : addonState.profit < 0 ? 'negative' : '';
+        const history = addonState.history.length
+            ? addonState.history.map(item => `
+                <li>
+                    <span>R${item.round} · ${escapeHtml(item.result)}</span>
+                    <strong class="${item.net >= 0 ? 'win' : 'loss'}">
+                        ${item.net >= 0 ? '+' : ''}${money(item.net)}$
+                    </strong>
+                </li>
+            `).join('')
+            : '<li><span>NO ROUNDS YET</span><strong>—</strong></li>';
+        const badges = achievements().map(([name, unlocked]) => `
+            <span class="achievement ${unlocked ? 'unlocked' : ''}">
+                ${unlocked ? 'UNLOCKED · ' : ''}${name}
+            </span>
+        `).join('');
+
+        modalContent.innerHTML = `
+            <div class="stats-grid">
+                <div class="stat-card"><small>BALANCE</small><strong>${money(addonState.balance)}$</strong></div>
+                <div class="stat-card"><small>ROUNDS</small><strong>${addonState.rounds}</strong></div>
+                <div class="stat-card"><small>WIN RATE</small><strong>${winRate}%</strong></div>
+                <div class="stat-card"><small>NET PROFIT</small><strong class="${profitClass}">${addonState.profit >= 0 ? '+' : ''}${money(addonState.profit)}$</strong></div>
+                <div class="stat-card"><small>BEST STREAK</small><strong>${addonState.bestStreak}</strong></div>
+                <div class="stat-card"><small>BEST HAND</small><strong>${addonState.bestHand || '—'}</strong></div>
+            </div>
+            <div class="addon-section-title">ACHIEVEMENTS</div>
+            <div class="achievement-row">${badges}</div>
+            <div class="addon-section-title">RECENT HANDS</div>
+            <ol class="history-list">${history}</ol>
+            <div class="addon-actions">
+                <button class="addon-secondary" data-addon-action="export" type="button">EXPORT</button>
+                <button class="addon-secondary" data-addon-action="share" type="button">SHARE RESULT</button>
+                <button class="addon-secondary danger" data-addon-action="reset" type="button">RESET SESSION</button>
+            </div>
+        `;
+    }
+
+    function renderBets() {
+        const maxBet = Math.max(0, Math.floor(currentBalance()));
+        modalContent.innerHTML = `
+            <div class="addon-section-title">QUICK BET PRESETS</div>
+            <div class="quick-bet">
+                ${[2, 5, 10, 25].map(value => `
+                    <button data-bet="${value}" type="button">${value}$</button>
+                `).join('')}
+                <button class="primary" data-bet="${maxBet}" type="button">MAX</button>
+            </div>
+            <div class="addon-section-title">BET ADJUSTER</div>
+            <div class="quick-bet">
+                <button data-bet-adjust="-1" type="button">−1</button>
+                <button data-bet-adjust="-5" type="button">−5</button>
+                <button data-bet-adjust="5" type="button">+5</button>
+                <button data-bet-adjust="10" type="button">+10</button>
+                <button data-bet="2" type="button">CLEAR</button>
+            </div>
+            <div class="addon-section-title">TABLE TIP</div>
+            <div class="stat-card">
+                <strong>BET WITHIN YOUR SESSION LIMIT.</strong>
+                <small>Captain 21 is a practice game. Keep the stakes fun and the bankroll imaginary.</small>
+            </div>
+            <div class="addon-actions">
+                <button class="addon-secondary" data-addon-action="stats" type="button">VIEW STATS</button>
+            </div>
+        `;
+    }
+
+    function renderHelp() {
+        modalContent.innerHTML = `
+            <ul class="help-list">
+                <li><kbd>ENTER</kbd> deal a hand</li>
+                <li><kbd>3</kbd> <kbd>4</kbd> <kbd>5</kbd> switch hand mode</li>
+                <li><kbd>S</kbd> toggle fast dealing</li>
+                <li><kbd>M</kbd> mute or restore sound</li>
+                <li><kbd>?</kbd> open this command guide</li>
+                <li>Use STATS for history, achievements, export, and session reset.</li>
+                <li>Use THEME to cycle the felt color and DISPLAY options.</li>
+            </ul>
+            <div class="addon-actions">
+                <button class="addon-secondary" data-addon-action="display" type="button">DISPLAY OPTIONS</button>
+                <button class="addon-secondary" data-addon-action="fullscreen" type="button">FULLSCREEN</button>
+            </div>
+        `;
+    }
+
+    function renderDisplay() {
+        modalContent.innerHTML = `
+            <div class="addon-section-title">DISPLAY & EXPERIENCE</div>
+            <div class="quick-bet">
+                <button data-addon-action="theme" type="button">CYCLE THEME</button>
+                <button data-addon-action="contrast" type="button">${addonState.contrast ? 'NORMAL CONTRAST' : 'HIGH CONTRAST'}</button>
+                <button data-addon-action="motion" type="button">${addonState.reducedMotion ? 'RESTORE MOTION' : 'REDUCE MOTION'}</button>
+                <button data-addon-action="fullscreen" type="button">FULLSCREEN</button>
+            </div>
+            <div class="addon-section-title">CURRENT SETTINGS</div>
+            <div class="stat-card">
+                <small>TABLE THEME</small>
+                <strong>${['ROYAL', 'SAPPHIRE', 'CRIMSON'][addonState.theme]}</strong>
+            </div>
+            <div class="addon-actions">
+                <button class="addon-secondary" data-addon-action="stats" type="button">BACK TO STATS</button>
+            </div>
+        `;
+    }
+
+    function openModal(mode = 'stats') {
+        modalMode = mode;
+        lastFocused = document.activeElement;
+        modalTitle.textContent = mode === 'stats'
+            ? 'SESSION COMMAND'
+            : mode === 'bets'
+                ? 'BETTING CONSOLE'
+                : mode === 'help'
+                    ? 'QUICK REFERENCE'
+                    : 'DISPLAY OPTIONS';
+        if (mode === 'stats') renderStats();
+        if (mode === 'bets') renderBets();
+        if (mode === 'help') renderHelp();
+        if (mode === 'display') renderDisplay();
+        modalEl.hidden = false;
+        document.getElementById('addon-close').focus();
+    }
+
+    function closeModal() {
+        modalEl.hidden = true;
+        if (lastFocused && typeof lastFocused.focus === 'function') lastFocused.focus();
+    }
+
+    function cycleTheme() {
+        addonState.theme = (addonState.theme + 1) % 3;
+        applyPreferences();
+        saveState();
+        notify(`THEME: ${['ROYAL', 'SAPPHIRE', 'CRIMSON'][addonState.theme]}`);
+    }
+
+    function toggleSound() {
+        addonState.sound = !addonState.sound;
+        applyPreferences();
+        saveState();
+        notify(addonState.sound ? 'SOUND RESTORED' : 'SOUND MUTED');
+    }
+
+    function toggleContrast() {
+        addonState.contrast = !addonState.contrast;
+        applyPreferences();
+        saveState();
+        notify(addonState.contrast ? 'HIGH CONTRAST ENABLED' : 'NORMAL CONTRAST ENABLED');
+        if (modalMode === 'display') renderDisplay();
+    }
+
+    function toggleMotion() {
+        addonState.reducedMotion = !addonState.reducedMotion;
+        applyPreferences();
+        saveState();
+        notify(addonState.reducedMotion ? 'MOTION REDUCED' : 'MOTION RESTORED');
+        if (modalMode === 'display') renderDisplay();
+    }
+
+    function setBet(value) {
+        const maxBet = Math.max(2, Math.floor(currentBalance()));
+        const next = Math.min(maxBet, Math.max(2, Number(value) || 2));
+        betInput.value = String(next);
+        betInput.dispatchEvent(new Event('change', { bubbles: true }));
+        notify(`BET SET TO ${next}$`);
+    }
+
+    function adjustBet(delta) {
+        setBet((Number.parseFloat(betInput.value) || 2) + Number(delta));
+        if (modalMode === 'bets') renderBets();
+    }
+
+    function exportSession() {
+        const blob = new Blob([JSON.stringify({
+            app: 'Captain 21 · Vegas Royalty Edition',
+            exportedAt: new Date().toISOString(),
+            ...addonState
+        }, null, 2)], { type: 'application/json' });
+        const link = document.createElement('a');
+        link.href = URL.createObjectURL(blob);
+        link.download = 'captain-21-session.json';
+        link.click();
+        URL.revokeObjectURL(link.href);
+        notify('SESSION EXPORTED');
+    }
+
+    async function shareResult() {
+        const winRate = addonState.rounds
+            ? Math.round((addonState.wins / addonState.rounds) * 100)
+            : 0;
+        const message = `Captain 21 session: ${addonState.rounds} rounds, ${winRate}% win rate, ${money(addonState.balance)}$ balance.`;
+        try {
+            if (navigator.share) {
+                await navigator.share({ title: 'Captain 21 Session', text: message });
+            } else {
+                await navigator.clipboard.writeText(message);
+                notify('RESULT COPIED TO CLIPBOARD');
+            }
+        } catch {
+            notify('SHARE CANCELLED');
+        }
+    }
+
+    function resetSession() {
+        if (!confirm('Reset this Captain 21 session and return to 100$?')) return;
+        addonState = { ...defaultState };
+        syncBalance(100);
+        applyPreferences();
+        notify('NEW SESSION READY');
+        openModal('stats');
+    }
+
+    function toggleFullscreen() {
+        if (document.fullscreenElement) {
+            document.exitFullscreen?.();
+            return;
+        }
+        document.documentElement.requestFullscreen?.().catch(() => {
+            notify('FULLSCREEN IS NOT AVAILABLE', 'error');
+        });
+    }
+
+    function confetti() {
+        if (addonState.reducedMotion) return;
+        const colors = ['#d4af37', '#00ffaa', '#ff3b57', '#f3e5ab', '#53c7ff'];
+        for (let i = 0; i < 28; i++) {
+            const piece = document.createElement('span');
+            piece.className = 'addon-confetti';
+            piece.style.left = `${20 + Math.random() * 60}%`;
+            piece.style.background = colors[i % colors.length];
+            piece.style.setProperty('--drift', `${(Math.random() - .5) * 240}px`);
+            piece.style.animationDelay = `${Math.random() * .18}s`;
+            document.body.appendChild(piece);
+            setTimeout(() => piece.remove(), 1900);
+        }
+    }
+
+    function recordRound(bet, startingBalance) {
+        const after = currentBalance();
+        const net = after - startingBalance;
+        const text = (statusEl?.textContent || '').trim();
+        const isCaptain = text.includes('CAPTAIN 21');
+        const won = net > 0;
+        const result = isCaptain ? 'CAPTAIN 21' : won ? 'WIN' : 'BUST';
+        addonState.rounds++;
+        addonState.profit += net;
+        addonState.balance = after;
+        addonState.bestHand = Math.max(addonState.bestHand, Number.parseInt(document.getElementById('score-box')?.textContent || '0', 10) || 0);
+        if (won) {
+            addonState.wins++;
+            addonState.currentStreak++;
+            addonState.bestStreak = Math.max(addonState.bestStreak, addonState.currentStreak);
+        } else {
+            addonState.losses++;
+            addonState.currentStreak = 0;
+        }
+        if (isCaptain) addonState.captain21s++;
+        addonState.history.unshift({
+            round: addonState.rounds,
+            result,
+            bet,
+            net,
+            mode: typeof currentMode === 'undefined' ? 4 : currentMode
+        });
+        addonState.history = addonState.history.slice(0, 12);
+        saveState();
+        if (isCaptain || won) confetti();
+        if (addonState.rounds === 1) notify('FIRST HAND LOGGED · STATS SAVED');
+    }
+
+    /* Wrap the original deal entry point so the original rules and animation
+       remain intact while the upgrade layer records session performance. */
+    const originalPlayRound = window.playRound;
+    if (typeof originalPlayRound === 'function') {
+        window.playRound = function upgradedPlayRound() {
+            const bet = Number.parseFloat(betInput.value) || 0;
+            const startingBalance = currentBalance();
+            originalPlayRound();
+            const mode = typeof currentMode === 'undefined' ? 4 : currentMode;
+            const fast = typeof speedMode !== 'undefined' && speedMode;
+            const startDelay = fast ? 35 : 80;
+            const cardDelay = fast ? 82 : 210;
+            const duration = startDelay + ((mode - 1) * cardDelay) + 520;
+            setTimeout(() => recordRound(bet, startingBalance), duration);
+        };
+    }
+
+    /* Store preference changes made through the original controls. */
+    const originalSetMode = window.setMode;
+    if (typeof originalSetMode === 'function') {
+        window.setMode = function upgradedSetMode(mode) {
+            originalSetMode(mode);
+            addonState.lastMode = mode;
+            saveState();
+        };
+    }
+
+    const originalToggleSpeed = window.toggleSpeed;
+    if (typeof originalToggleSpeed === 'function') {
+        window.toggleSpeed = function upgradedToggleSpeed() {
+            originalToggleSpeed();
+            notify(typeof speedMode !== 'undefined' && speedMode ? 'FAST DEAL ENABLED' : 'NORMAL DEAL ENABLED');
+        };
+    }
+
+    /* Route every original sound entry point through the persistent mute
+       preference, including sounds triggered by the base game internally. */
+    const originalPlayClickSound = window.playClickSound;
+    if (typeof originalPlayClickSound === 'function') {
+        window.playClickSound = function upgradedClickSound() {
+            if (addonState.sound) originalPlayClickSound();
+        };
+    }
+
+    const originalPlaySpeedSound = window.playSpeedSound;
+    if (typeof originalPlaySpeedSound === 'function') {
+        window.playSpeedSound = function upgradedSpeedSound(active) {
+            if (addonState.sound) originalPlaySpeedSound(active);
+        };
+    }
+
+    const originalPlaySoundEffect = window.playSoundEffect;
+    if (typeof originalPlaySoundEffect === 'function') {
+        window.playSoundEffect = function upgradedSoundEffect(type) {
+            if (addonState.sound) originalPlaySoundEffect(type);
+        };
+    }
+
+    /* Replace blocking validation alerts with the in-game toast. */
+    window.alert = message => notify(String(message).toUpperCase(), 'error');
+
+    document.getElementById('addon-stats-btn').addEventListener('click', () => openModal('stats'));
+    document.getElementById('addon-bets-btn').addEventListener('click', () => openModal('bets'));
+    document.getElementById('addon-help-btn').addEventListener('click', () => openModal('help'));
+    document.getElementById('addon-display-btn').addEventListener('click', () => openModal('display'));
+    soundBtn.addEventListener('click', toggleSound);
+    document.getElementById('addon-close').addEventListener('click', closeModal);
+
+    modalEl.addEventListener('click', event => {
+        if (event.target === modalEl) closeModal();
+        const button = event.target.closest('[data-addon-action]');
+        if (button) {
+            const action = button.dataset.addonAction;
+            if (action === 'stats') openModal('stats');
+            if (action === 'display') openModal('display');
+            if (action === 'export') exportSession();
+            if (action === 'share') shareResult();
+            if (action === 'reset') resetSession();
+            if (action === 'theme') {
+                cycleTheme();
+                if (modalMode === 'display') renderDisplay();
+            }
+            if (action === 'contrast') toggleContrast();
+            if (action === 'motion') toggleMotion();
+            if (action === 'fullscreen') toggleFullscreen();
+        }
+        if (button?.dataset.bet) {
+            setBet(button.dataset.bet);
+            if (modalMode === 'bets') renderBets();
+        }
+        if (button?.dataset.betAdjust) adjustBet(button.dataset.betAdjust);
+    });
+
+    document.addEventListener('keydown', event => {
+        if (event.key === 'Escape' && !modalEl.hidden) {
+            closeModal();
+            return;
+        }
+        if (!modalEl.hidden || ['INPUT', 'TEXTAREA', 'SELECT'].includes(document.activeElement?.tagName)) return;
+        const key = event.key.toLowerCase();
+        if (key === 'enter') document.getElementById('deal-btn').click();
+        if (['3', '4', '5'].includes(key) && typeof window.setMode === 'function') window.setMode(Number(key));
+        if (key === 's' && typeof window.toggleSpeed === 'function') window.toggleSpeed();
+        if (key === 'm') toggleSound();
+        if (key === '?') openModal('help');
+    });
+
+    /* Restore saved practice progress on reload, but never restore a locked
+       in-flight hand. */
+    if (Number.isFinite(addonState.balance) && addonState.balance > 0) {
+        if (typeof balance !== 'undefined') balance = addonState.balance;
+        applyPreferences();
+    }
+})();
+</script>
+
+<script>
+/* =========================================================
+   CAPTAIN 21 CINEMATIC PASS
+========================================================= */
+
+(() => {
+    'use strict';
+
+    const CINEMATIC_KEY = 'captain21-cinematic-v1';
+    const table = document.getElementById('blackjack-table');
+    const cardHolder = document.getElementById('card-holder');
+    const scoreBox = document.getElementById('score-box');
+    const statusBox = document.getElementById('status-message');
+    const modalContent = document.getElementById('addon-modal-content');
+    const modalTitle = document.getElementById('addon-modal-title');
+    const originalState = {
+        lightMode: false,
+        haptics: true,
+        autoDeal: false,
+        challengeDate: '',
+        challengeProgress: 0
+    };
+    let cinematicState = loadCinematicState();
+    let autoDealTimer = null;
+    let lastStatus = '';
+
+    function loadCinematicState() {
+        try {
+            return {
+                ...originalState,
+                ...(JSON.parse(localStorage.getItem(CINEMATIC_KEY) || 'null') || {})
+            };
+        } catch {
+            return { ...originalState };
+        }
+    }
+
+    function saveCinematicState() {
+        try {
+            localStorage.setItem(CINEMATIC_KEY, JSON.stringify(cinematicState));
+        } catch {
+            /* Continue gracefully when browser storage is unavailable. */
+        }
+    }
+
+    function notifyCinematic(message) {
+        const toast = document.getElementById('addon-toast');
+        if (!toast) return;
+        toast.textContent = message;
+        toast.className = 'addon-toast show';
+        clearTimeout(notifyCinematic.timer);
+        notifyCinematic.timer = setTimeout(() => {
+            toast.className = 'addon-toast';
+        }, 2200);
+    }
+
+    function vibrate(pattern = 8) {
+        if (cinematicState.haptics && navigator.vibrate) navigator.vibrate(pattern);
+    }
+
+    function applyCinematicPreferences() {
+        document.body.classList.toggle('addon-light', cinematicState.lightMode);
+        saveCinematicState();
+        updateChallenge();
+    }
+
+    function getToday() {
+        return new Date().toISOString().slice(0, 10);
+    }
+
+    function updateChallenge() {
+        if (cinematicState.challengeDate !== getToday()) {
+            cinematicState.challengeDate = getToday();
+            cinematicState.challengeProgress = 0;
+            saveCinematicState();
+        }
+        let challenge = document.getElementById('daily-challenge');
+        if (!challenge) {
+            challenge = document.createElement('div');
+            challenge.id = 'daily-challenge';
+            challenge.className = 'daily-challenge';
+            document.body.appendChild(challenge);
+        }
+        const complete = cinematicState.challengeProgress >= 3;
+        challenge.classList.toggle('complete', complete);
+        challenge.innerHTML = complete
+            ? '<strong>DAILY CHALLENGE COMPLETE</strong>'
+            : `<strong>DAILY CHALLENGE</strong> · WIN 3 HANDS · ${cinematicState.challengeProgress}/3`;
+    }
+
+    function courtMarkup(rank, red) {
+        const accent = red ? '#a51d31' : '#26333b';
+        const shadow = red ? '#681323' : '#11191e';
+        const crown = rank === 'K'
+            ? '<path d="M26 26l8-12 7 8 9-13 9 13 7-8 8 12-4 8H30z" fill="#d4af37" stroke="#6b4b0b" stroke-width="2"/><path d="M32 34h36" stroke="#6b4b0b" stroke-width="3"/>'
+            : rank === 'Q'
+                ? '<path d="M28 28l6-13 10 10 6-14 8 14 10-10 6 13-3 8H31z" fill="#d4af37" stroke="#6b4b0b" stroke-width="2"/><circle cx="50" cy="17" r="3" fill="#fff2a9"/>'
+                : '<path d="M35 27l8-15 8 10 9-12 7 17-8 7H39z" fill="#d4af37" stroke="#6b4b0b" stroke-width="2"/><path d="M37 35h28" stroke="#6b4b0b" stroke-width="3"/>';
+        const prop = rank === 'K'
+            ? '<path d="M73 55l-12 55M67 56l12 54" stroke="#d4af37" stroke-width="4"/><path d="M56 109h20" stroke="#6b4b0b" stroke-width="3"/>'
+            : rank === 'Q'
+                ? '<path d="M72 58q-18 25 1 50" fill="none" stroke="#d4af37" stroke-width="5"/><path d="M70 61q-10 24 4 44" fill="none" stroke="#a51d31" stroke-width="3"/>'
+                : '<path d="M75 57q-20 12-3 50" fill="none" stroke="#d4af37" stroke-width="5"/>';
+        return `
+            <div class="court-portrait" data-rank="${rank}">
+                <svg viewBox="0 0 100 125" xmlns="http://www.w3.org/2000/svg" aria-label="${rank === 'K' ? 'King' : rank === 'Q' ? 'Queen' : 'Jack'} of playing cards">
+                    <path d="M18 122q5-32 32-38 27 6 32 38z" fill="${shadow}" stroke="#6b4b0b" stroke-width="2"/>
+                    <path d="M32 87q18-14 36 0l-4 25H36z" fill="${accent}" stroke="#6b4b0b" stroke-width="2"/>
+                    ${prop}
+                    <ellipse cx="50" cy="58" rx="18" ry="22" fill="#e5b68b" stroke="#6b4b0b" stroke-width="2"/>
+                    <path d="M34 54q4-22 16-22t16 22q-10-8-32 0z" fill="${shadow}"/>
+                    <circle cx="44" cy="59" r="2" fill="#151719"/><circle cx="56" cy="59" r="2" fill="#151719"/>
+                    <path d="M44 70q6 5 12 0" fill="none" stroke="#71372a" stroke-width="2"/>
+                    ${crown}
+                    <path d="M24 117h52" stroke="#d4af37" stroke-width="2"/>
+                </svg>
+            </div>
+        `;
+    }
+
+    function decorateCards() {
+        document.querySelectorAll('.card-front').forEach(front => {
+            const slot = front.closest('.card-slot');
+            const rankElement = front.querySelector('.top-corner > div');
+            const rank = rankElement?.textContent.trim();
+            if (!slot) return;
+            if (!rank) {
+                slot.classList.remove('cinematic-dealt');
+                front.removeAttribute('data-cinematic-rank');
+                return;
+            }
+            if (front.dataset.cinematicRank !== rank) {
+                front.dataset.cinematicRank = rank;
+                if (['J', 'Q', 'K'].includes(rank)) {
+                    front.classList.add('court-card');
+                    front.insertAdjacentHTML(
+                        'afterbegin',
+                        courtMarkup(rank, front.classList.contains('red'))
+                    );
+                }
+            }
+            if (slot.classList.contains('flipped')) {
+                slot.classList.add('cinematic-dealt');
+            }
+        });
+    }
+
+    function addCardTilt(slot) {
+        slot.addEventListener('pointermove', event => {
+            if (!slot.classList.contains('flipped')) return;
+            const rect = slot.getBoundingClientRect();
+            const x = (event.clientX - rect.left) / rect.width - .5;
+            const y = (event.clientY - rect.top) / rect.height - .5;
+            slot.classList.add('cinematic-card-cursor');
+            slot.style.setProperty('--tilt-x', `${x * 8}deg`);
+            slot.style.setProperty('--tilt-y', `${y * -8}deg`);
+        });
+        slot.addEventListener('pointerleave', () => {
+            slot.classList.remove('cinematic-card-cursor');
+            slot.style.removeProperty('--tilt-x');
+            slot.style.removeProperty('--tilt-y');
+        });
+    }
+
+    if (cardHolder) {
+        cardHolder.querySelectorAll('.card-slot').forEach(addCardTilt);
+        new MutationObserver(decorateCards).observe(cardHolder, {
+            subtree: true,
+            childList: true,
+            attributes: true,
+            attributeFilter: ['class']
+        });
+        decorateCards();
+    }
+
+    if (scoreBox) {
+        new MutationObserver(() => {
+            scoreBox.classList.remove('cinematic-score');
+            void scoreBox.offsetWidth;
+            scoreBox.classList.add('cinematic-score');
+        }).observe(scoreBox, { childList: true, characterData: true, subtree: true });
+    }
+
+    function injectCinematicSettings() {
+        if (modalTitle?.textContent !== 'DISPLAY OPTIONS' || !modalContent) return;
+        if (modalContent.querySelector('[data-cinematic-settings]')) return;
+        const settings = document.createElement('div');
+        settings.dataset.cinematicSettings = 'true';
+        settings.innerHTML = `
+            <div class="addon-section-title">CINEMATIC SETTINGS</div>
+            <div class="quick-bet">
+                <button class="${cinematicState.lightMode ? '' : 'primary'}" data-cinematic-action="dark" type="button">DARK MODE</button>
+                <button class="${cinematicState.lightMode ? 'primary' : ''}" data-cinematic-action="light" type="button">LIGHT MODE</button>
+                <button data-cinematic-action="haptics" type="button">${cinematicState.haptics ? 'HAPTICS ON' : 'HAPTICS OFF'}</button>
+                <button data-cinematic-action="auto">${cinematicState.autoDeal ? 'AUTO DEAL ON' : 'AUTO DEAL OFF'}</button>
+            </div>
+        `;
+        modalContent.prepend(settings);
+    }
+
+    function handleCinematicAction(action) {
+        if (action === 'dark') cinematicState.lightMode = false;
+        if (action === 'light') cinematicState.lightMode = true;
+        if (action === 'haptics') cinematicState.haptics = !cinematicState.haptics;
+        if (action === 'auto') cinematicState.autoDeal = !cinematicState.autoDeal;
+        if (action === 'light' || action === 'dark') {
+            applyCinematicPreferences();
+            notifyCinematic(cinematicState.lightMode ? 'LIGHT TABLE ENABLED' : 'DARK TABLE ENABLED');
+        }
+        if (action === 'haptics') {
+            vibrate([12, 25, 12]);
+            notifyCinematic(cinematicState.haptics ? 'HAPTICS ENABLED' : 'HAPTICS DISABLED');
+        }
+        if (action === 'auto') {
+            notifyCinematic(cinematicState.autoDeal ? 'AUTO DEAL ENABLED' : 'AUTO DEAL DISABLED');
+            if (!cinematicState.autoDeal) clearTimeout(autoDealTimer);
+        }
+        saveCinematicState();
+        injectCinematicSettings();
+    }
+
+    document.addEventListener('click', event => {
+        const cinematicButton = event.target.closest('[data-cinematic-action]');
+        if (cinematicButton) handleCinematicAction(cinematicButton.dataset.cinematicAction);
+        if (event.target.closest('button, .card-slot')) vibrate();
+    });
+
+    if (modalContent) {
+        new MutationObserver(injectCinematicSettings).observe(modalContent, { childList: true });
+    }
+
+    document.getElementById('addon-display-btn')?.addEventListener('click', () => {
+        setTimeout(injectCinematicSettings, 0);
+    });
+
+    const previousPlayRound = window.playRound;
+    if (typeof previousPlayRound === 'function') {
+        window.playRound = function cinematicPlayRound() {
+            const bet = Number.parseFloat(document.getElementById('bet-input')?.value || 0);
+            const balance = Number.parseFloat(document.getElementById('balance')?.textContent || 0);
+            previousPlayRound();
+            if (!cinematicState.autoDeal || bet < 2 || bet > balance) return;
+            const fast = typeof speedMode !== 'undefined' && speedMode;
+            const mode = typeof currentMode === 'undefined' ? 4 : currentMode;
+            const wait = (fast ? 35 : 80) + ((mode - 1) * (fast ? 82 : 210)) + 850;
+            clearTimeout(autoDealTimer);
+            autoDealTimer = setTimeout(() => {
+                if (cinematicState.autoDeal && (typeof roundActive === 'undefined' || !roundActive)) {
+                    window.playRound();
+                }
+            }, wait);
+        };
+    }
+
+    if (statusBox) {
+        new MutationObserver(() => {
+            const text = statusBox.textContent.trim();
+            if (text === 'DEALING...') {
+                lastStatus = '';
+                return;
+            }
+            if (!lastStatus && (text.includes('WINNER') || text.includes('CAPTAIN 21'))) {
+                cinematicState.challengeProgress = Math.min(3, cinematicState.challengeProgress + 1);
+                saveCinematicState();
+                updateChallenge();
+            }
+            lastStatus = text;
+        }).observe(statusBox, { childList: true, characterData: true, subtree: true });
+    }
+
+    applyCinematicPreferences();
+})();
 </script>
 
 </body>
